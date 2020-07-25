@@ -1,0 +1,13 @@
+name: matrix2d
+description: A numpy-like package for mathematical 2d array functions and manipulations for dart
+version: 0.0.1
+homepage: 'https://github.com/BuckthornInc/matrix2d'
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  statistical_dart: ^0.0.1
+  
+dev_dependencies:
+  test: ^1.0.0
