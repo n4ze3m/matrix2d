@@ -92,4 +92,21 @@ void main() {
   // linspace
   var linspace = m2d.linspace(2, 3, 5);
   print(linspace);
+
+  // diagonal
+  var arr = [
+    [1, 1, 1],
+    [2, 2, 2],
+    [3, 3, 3]
+  ];
+  var diagonal = m2d.diagonal(arr);
+  print(diagonal);
+
+  //fill
+  var fill = m2d.fill(3, 3, 'matrix2d');
+  print(fill);
+
+  // compare object
+  var compare = m2d.compareobject(arr, '>', 2);
+  print(compare);
 }

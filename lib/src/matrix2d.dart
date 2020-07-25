@@ -15,12 +15,12 @@ class Matrix2d {
   Matrix2d();
 
   /// using statistical package for array sum etc..
-  Statistical _statistical = Statistical();
+  final _statistical = Statistical();
 
   /// Check the given list is 2D array
   bool _checkArray(List list) {
-    bool flag = _isList(list[0]);
-    var length = flag ? list[0].length : 0;
+    final flag = _isList(list[0]);
+    final length = flag ? list[0].length : 0;
     for (int i = 0; i < list.length; i++) {
       var tempFlag = _isList(list[i]);
       var tempLength = tempFlag ? list[i].length : 0;
@@ -30,7 +30,7 @@ class Matrix2d {
   }
 
   /// For checking multi list
-  bool _isList(list) => list is List;
+  _isList(list) => list is List;
 
   /// The shape of an array is the number of elements in each dimension.
   ///
@@ -189,13 +189,13 @@ class Matrix2d {
     if (steps == null) steps = 1;
     if (start == null) start = 0;
     List result = [];
-    for (var i = start; i < stop; i += steps) {
+    for (var i = start; i <= stop; i += steps) {
       result.add(i);
     }
     return [result];
   }
 
-  /// Return a new array of given shape and type, with zeros
+  /// Return a new array of given shape, with zeros
   ///
   /// ```
   /// var zeros = m2d.zeros(2,2);
@@ -205,7 +205,7 @@ class Matrix2d {
   List zeros(int row, int cols) =>
       List.filled(row, 0).map((e) => List.filled(cols, 0)).toList();
 
-  /// Return a new array of given shape and type, with ones
+  /// Return a new array of given shape, with ones
   ///
   /// ```
   /// var ones = m2d.ones(3,3);
@@ -265,6 +265,121 @@ class Matrix2d {
     var steps = (end - start) / (number - 1);
     for (int i = 0; i < number; i++) {
       res.add(start + steps * i);
+    }
+    return res;
+  }
+
+  //0.02
+  ///To find a diagonal element from a given matrix and gives output as one dimensional matrix.
+  ///
+  ///```
+  ///var arr = [[1,1,1],[2,2,2],[3,3,3]];
+  ///var diagonal = m2d.diagonal(arr);
+  ///print(diagonal);
+  /////[[1,2,3]]
+  ///```
+  List diagonal(List list) {
+    /// get the shape on an given array
+    final shape = this.shape(list);
+
+    /// initialize empty array
+    final List res = [];
+
+    /// compar shape length
+    if (shape.length < 2)
+
+      /// throw error
+      throw ('Currently support 2D operations or put that values inside a list of list');
+
+    /// start row loop
+    for (int i = 0; i < shape[0]; i++) {
+      /// start column loops
+      for (int j = 0; j < shape[1]; j++) {
+        /// compare row to column
+        if (i == j) {
+          /// if true add list value to initialized list
+          res.add(list[i][j]);
+        }
+      }
+    }
+
+    /// return the new diaglonal list inside list
+    return [res];
+  }
+
+  /// Just like `zeros()` and `ones` this function will return a new array of given shape, with given object(anything btw strings too)
+  ///
+  ///```
+  ///var fill = m2d.fill(2,2,true);
+  ///print(fill);
+  ///// [[true,true],[true,true]]
+  ///```
+  fill(int row, int cols, value) =>
+      List.filled(row, value).map((e) => List.filled(cols, value)).toList();
+
+  /// compare values inside an array with given object and operations. function will return a  new boolen array
+  ///
+  /// ```
+  /// var arr = [[1,1,1],[2,2,2],[3,3,3]];
+  /// var compare = m2d.compare(arr,'>',2);
+  ///print(compare);
+  /////[[false, false, false], [false, false, false], [true, true, true]]
+  /// ```
+  List compareobject(List list, String operations, object) {
+    /// get shapes
+    final shapee = this.shape(list);
+    List operatns = ['>', '<', '>=', '<=', '==', '!='];
+    if (!_checkArray(list)) throw ('Uneven array dimension');
+    if (!operatns.contains(operations))
+      throw ('Current operation is not support');
+    if (shapee.length < 2)
+      throw ('Currently support 2D operations or put that values inside a list of list');
+    final List res = this.fill(shapee[0], shapee[1], true);
+    for (int i = 0; i < shapee[0]; i++) {
+      for (int j = 0; j < shapee[1]; j++) {
+        try {
+          var val = list[i][j];
+          if (operations == operatns[0]) {
+            if (val > object) {
+              res[i][j] = true;
+            } else {
+              res[i][j] = false;
+            }
+          } else if (operations == operatns[1]) {
+            if (val < object) {
+              res[i][j] = true;
+            } else {
+              res[i][j] = false;
+            }
+          } else if (operations == operatns[2]) {
+            if (val >= object) {
+              res[i][j] = true;
+            } else {
+              res[i][j] = false;
+            }
+          } else if (operations == operatns[3]) {
+            if (val <= object) {
+              res[i][j] = true;
+            } else {
+              res[i][j] = false;
+            }
+          } else if (operations == operatns[4]) {
+            if (val == object) {
+              res[i][j] = true;
+            } else {
+              res[i][j] = false;
+            }
+          } else {
+            if (val != object) {
+              res[i][j] = true;
+            } else {
+              res[i][j] = false;
+            }
+          }
+        } catch (e) {
+          throw ('Sorry can\'t compare string with number');
+        }
+      }
     }
     return res;
   }

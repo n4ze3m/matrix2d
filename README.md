@@ -30,6 +30,11 @@ Matrix 2d a lightweight dart library providing a subset of Python's numpy packag
 
 - ```reshape(list)```Reshaping means changing the shape of an array.
 
+- ```diagonal(list)``` To find a diagonal element from a given matrix and gives output as one dimensional matrix.
+- ```fill(row,cols,object)``` Just like `zeros()` and `ones` this function will return a new array of given shape, with given object(anything btw strings too)
+
++ ```compareobject(list,operation,obj)``` compare values inside an array with given object and operations. function will return a  new boolen array
+
 *As soon as possible, more features will be available.*
 
 ## Contribution 🤓
