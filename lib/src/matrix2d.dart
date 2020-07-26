@@ -42,7 +42,7 @@ class Matrix2d {
   List shape(List list) {
     var _shapeCheck = _checkArray(list);
     if (!_shapeCheck) throw ('Uneven array dimension');
-    List result = [];
+    var result = [];
     for (;;) {
       result.add(list.length);
       if (_isList(list[0])) {
@@ -64,7 +64,7 @@ class Matrix2d {
   List flatten(List list) {
     final _shapeCheck = _checkArray(list);
     if (!_shapeCheck) throw ('Uneven array dimension');
-    List result = [];
+    var result = [];
     for (var i = 0; i < list.length; i++) {
       for (var j = 0; j < list[i].length; j++) {
         result.add(list[i][j]);
@@ -85,7 +85,7 @@ class Matrix2d {
     final shape = this.shape(list);
     if (!_shapeCheck) throw ('Uneven array dimension');
     // todo add zero here
-    List temp =
+    var temp =
         List.filled(shape[1], 0).map((e) => List.filled(shape[0], 0)).toList();
     ;
     for (var i = 0; i < shape[1]; i++) {
@@ -164,7 +164,7 @@ class Matrix2d {
 
     if (list1Shape[1] != list2Shape[0]) throw ('Shapes not aligned');
     // todo needs to use zero fun
-    List result = new List.filled(list1.length, 0)
+    var result = new List.filled(list1.length, 0)
         .map((e) => List.filled(list2[0].length, 0))
         .toList();
     // list1 x list2 matrix
@@ -241,7 +241,7 @@ class Matrix2d {
     var copy = list.sublist(0);
     list.clear();
     for (var r = 0; r < row; r++) {
-      List res = [];
+      var res = [];
       for (var c = 0; c < column; c++) {
         var i = r * column + c;
         if (i < copy.length) {
@@ -261,7 +261,7 @@ class Matrix2d {
   /////[2.0, 2.25, 2.5, 2.75, 3.0]
   ///```
   linspace(int start, int end, [int number = 50]) {
-    List res = [];
+    var res = [];
     var steps = (end - start) / (number - 1);
     for (var i = 0; i < number; i++) {
       res.add(start + steps * i);
@@ -283,7 +283,7 @@ class Matrix2d {
     final shape = this.shape(list);
 
     /// initialize empty array
-    final List res = [];
+    var res = [];
 
     /// compar shape length
     if (shape.length < 2)
@@ -328,7 +328,7 @@ class Matrix2d {
   List compareobject(List list, String operations, object) {
     /// get shapes
     final shapee = this.shape(list);
-    List operatns = ['>', '<', '>=', '<=', '==', '!='];
+    var operatns = ['>', '<', '>=', '<=', '==', '!='];
     if (!_checkArray(list)) throw ('Uneven array dimension');
     if (!operatns.contains(operations))
       throw ('Current operation is not support');
@@ -382,5 +382,48 @@ class Matrix2d {
       }
     }
     return res;
+  }
+
+  /// Concatenation refers to joining. This function is used to join two or more arrays of the same shape along a specified axis. The function takes the following parameters
+  /// note: Axis along which arrays have to be joined. Default is 0
+  /// 
+  /// for example please check [github.com/BuckthornInc/matrix2d](https://github.com/BuckthornInc/matrix2d)
+  List concatenate(List list1, list2, {int axis = 0}) {
+    if (axis > 1 || axis < 0) throw ('axis only support 0 and 1');
+    var shape1 = this.shape(list1);
+    var shape2 = this.shape(list2);
+    if (axis == 1) {
+      if (shape1[0] == shape2[0]) {
+        var temp = this.fill(shape1[0], shape1[1] + shape2[1], null);
+        var jwal = shape1[1] >= shape2[1] ? shape1[1] : shape2[1];
+        for (var i = 0; i < shape1[0]; i++) {
+          for (var j = 0; j < jwal; j++) {
+            if (shape1[1] == shape2[1]) {
+              temp[i][j] = list1[i][j];
+              temp[i][j + shape2[1]] = list2[i][j];
+            } else if (shape1[1] > shape2[1]) {
+              temp[i][j] = list1[i][j];
+              if (j < shape2[1]) {
+                temp[i][j + shape1[1]] = list2[i][j];
+              }
+            } else {
+              if (j < shape1[1]) {
+                temp[i][j] = list1[i][j];
+              }
+              temp[i][j + shape2[1] - (shape2[1] - shape1[1])] = list2[i][j];
+            }
+          }
+        }
+        return temp;
+      } else {
+        throw ('all the input array dimensions for the concatenation axis must match exactly');
+      }
+    } else {
+      if (shape1[1] == shape2[1]) {
+        return list1 + list2;
+      } else {
+        throw ('all the input array dimensions for the concatenation axis must match exactly');
+      }
+    }
   }
 }

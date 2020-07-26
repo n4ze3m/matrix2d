@@ -1,6 +1,6 @@
 <h1 align="center">Matrix 2D 🧮</h1>
 
-Matrix 2D a lightweight dart library providing a subset of Python's numpy package. This package is written in pure dart 🔥.
+Matrix 2D is a lightweight dart library providing a subset of Python's numpy package. This package is written in pure dart 🔥.
 
 <!-- *please check example/example.dart* for examples. -->
 
@@ -34,6 +34,8 @@ Matrix 2D a lightweight dart library providing a subset of Python's numpy packag
 - ```fill(row,cols,object)``` Just like `zeros()` and `ones` this function will return a new array of given shape, with given object(anything btw strings too)
 
 + ```compareobject(list,operation,obj)``` compare values inside an array with given object and operations. function will return a  new boolen array
+
++ ```concatenate(listA,listB,{axis})``` Concatenation refers to joining. This function is used to join two or more arrays of the same shape along a specified axis. The function takes the following parameters note: Axis along which arrays have to be joined. Default is 0
 
 *As soon as possible, more features will be available.*
 
@@ -193,6 +195,59 @@ print(compare);
 <b>ouput</b>:
 ```
 [[false, false, false], [false, false, false], [true, true, true]]
+```
+<hr>
+<h2>concatenate</h2>
+
+<h5>axis 0</h5>
+
+```
+final l1 = [
+    [1, 1, 1],
+    [1, 1, 1],
+    [1, 1, 1]
+  ];
+  final l2 = [
+    [0, 0, 0],
+    [0, 0, 0],
+    [0, 0, 0],
+    [0, 0, 0],
+  ];
+  final l3 = m2d.concatenate(l1, l2);
+  print(l3);
+```
+<b>ouput</b>:
+```
+[[1, 1, 1], 
+[1, 1, 1], 
+[1, 1, 1], 
+[0, 0, 0], 
+[0, 0, 0],
+[0, 0, 0], 
+[0, 0, 0]]
+```
+<h5>axis 1</h5>
+
+```
+final a1 = [
+    [1, 1, 1, 1],
+    [1, 1, 1, 1],
+    [1, 1, 1, 1]
+  ];
+  final a2 = [
+    [0, 0, 0, 0, 0,0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0,0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0,0, 0, 0, 0, 0]
+  ];
+
+  final a3 = m2d.concatenate(a2, a1, axis: 1);
+  print(a3);
+```
+<b>ouput</b>:
+```
+[[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1], 
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1], 
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1]]
 ```
 <hr>
 <h2>zeros,ones and fill</h2>

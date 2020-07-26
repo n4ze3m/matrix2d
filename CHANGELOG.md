@@ -1,3 +1,6 @@
+## 0.0.5
++ added  2d matrix concatenate function
+
 ## 0.0.4
 + added extension support on list or matrix
 

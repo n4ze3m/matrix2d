@@ -81,8 +81,10 @@ void main() {
   print(sum.sum);
 
   // reshape
-  final array = [[0, 1, 2, 3, 4, 5, 6, 7]];
-  print(array.reshape(4,2));
+  final array = [
+    [0, 1, 2, 3, 4, 5, 6, 7]
+  ];
+  print(array.reshape(4, 2));
 
   // linspace
   final linspace = m2d.linspace(2, 3, 5);
@@ -103,4 +105,36 @@ void main() {
   // compare object
   final compare = m2d.compareobject(arr, '>', 2);
   print(compare);
+
+  // concatenate
+
+  // axis 0
+  final l1 = [
+    [1, 1, 1],
+    [1, 1, 1],
+    [1, 1, 1]
+  ];
+  final l2 = [
+    [0, 0, 0],
+    [0, 0, 0],
+    [0, 0, 0],
+    [0, 0, 0],
+  ];
+  final l3 = m2d.concatenate(l1, l2);
+  print(l3);
+
+  // axis 1
+  final a1 = [
+    [1, 1, 1, 1],
+    [1, 1, 1, 1],
+    [1, 1, 1, 1]
+  ];
+  final a2 = [
+    [0, 0, 0, 0, 0,0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0,0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0,0, 0, 0, 0, 0]
+  ];
+
+  final a3 = m2d.concatenate(a2, a1, axis: 1);
+  print(a3);
 }
