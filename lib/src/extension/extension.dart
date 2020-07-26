@@ -18,4 +18,10 @@ extension Matrix2dExtension on List {
 
   /// Reshaping means changing the shape of an array.
   List reshape(row, column) => Matrix2d().reshape(this, row, column);
+
+  /// find min value of given matrix
+  List min({int axis}) => Matrix2d().min(this, axis: axis);
+
+  /// find max value of given matrix
+  List max({int axis}) => Matrix2d().max(this, axis: axis);
 }

@@ -1,7 +1,9 @@
+## 0.07
++ matrix `min()`, `max()` operations added
 ## 0.0.6
 + small bugs fixed
 ## 0.0.5
-+ added  2d matrix concatenate function
++ added  2d matrix `concatenate()`
 
 ## 0.0.4
 + added extension support on list or matrix

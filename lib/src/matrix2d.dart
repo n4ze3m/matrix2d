@@ -41,7 +41,7 @@ class Matrix2d {
   /// ```
   List shape(List list) {
     var _shapeCheck = _checkArray(list);
-    if (!_shapeCheck) throw ('Uneven array dimension');
+    if (!_shapeCheck) throw new Exception('Uneven array dimension');
     var result = [];
     for (;;) {
       result.add(list.length);
@@ -63,7 +63,7 @@ class Matrix2d {
   /// ```
   List flatten(List list) {
     final _shapeCheck = _checkArray(list);
-    if (!_shapeCheck) throw ('Uneven array dimension');
+    if (!_shapeCheck) throw new Exception('Uneven array dimension');
     var result = [];
     for (var i = 0; i < list.length; i++) {
       for (var j = 0; j < list[i].length; j++) {
@@ -83,7 +83,7 @@ class Matrix2d {
   List transpose(List list) {
     final _shapeCheck = _checkArray(list);
     final shape = this.shape(list);
-    if (!_shapeCheck) throw ('Uneven array dimension');
+    if (!_shapeCheck) throw new Exception('Uneven array dimension');
     // todo add zero here
     var temp =
         List.filled(shape[1], 0).map((e) => List.filled(shape[0], 0)).toList();
@@ -107,7 +107,8 @@ class Matrix2d {
     var list1Shape = shape(list1);
     var list2Shape = shape(list2);
     if (list1Shape.toString() != list2Shape.toString()) {
-      throw ('operands could not be broadcast together with shapes $list1Shape $list2Shape');
+      throw new Exception(
+          'operands could not be broadcast together with shapes $list1Shape $list2Shape');
     }
     var result = utladdition(list1, list2);
     return result;
@@ -124,7 +125,8 @@ class Matrix2d {
     var list1Shape = shape(list1);
     var list2Shape = shape(list2);
     if (list1Shape.toString() != list2Shape.toString()) {
-      throw ('operands could not be broadcast together with shapes $list1Shape $list2Shape');
+      throw new Exception(
+          'operands could not be broadcast together with shapes $list1Shape $list2Shape');
     }
     var result = utlsubtraction(list1, list2);
     return result;
@@ -141,7 +143,8 @@ class Matrix2d {
     var list1Shape = shape(list1);
     var list2Shape = shape(list2);
     if (list1Shape.toString() != list2Shape.toString()) {
-      throw ('operands could not be broadcast together with shapes $list1Shape $list2Shape');
+      throw new Exception(
+          'operands could not be broadcast together with shapes $list1Shape $list2Shape');
     }
     var result = utldivition(list1, list2);
     return result;
@@ -160,9 +163,11 @@ class Matrix2d {
     var list1Shape = shape(list1);
     var list2Shape = shape(list2);
     if (list1Shape.length < 2 || list2Shape.length < 2)
-      throw ('Currently support 2D operations or put that values inside a list of list');
+      throw new Exception(
+          'Currently support 2D operations or put that values inside a list of list');
 
-    if (list1Shape[1] != list2Shape[0]) throw ('Shapes not aligned');
+    if (list1Shape[1] != list2Shape[0])
+      throw new Exception('Shapes not aligned');
     // todo needs to use zero fun
     var result = new List.filled(list1.length, 0)
         .map((e) => List.filled(list2[0].length, 0))
@@ -329,11 +334,12 @@ class Matrix2d {
     /// get shapes
     final shapee = shape(list);
     var operatns = ['>', '<', '>=', '<=', '==', '!='];
-    if (!_checkArray(list)) throw ('Uneven array dimension');
+    if (!_checkArray(list)) throw new Exception('Uneven array dimension');
     if (!operatns.contains(operations))
-      throw ('Current operation is not support');
+      throw new Exception('Current operation is not support');
     if (shapee.length < 2)
-      throw ('Currently support 2D operations or put that values inside a list of list');
+      throw new Exception(
+          'Currently support 2D operations or put that values inside a list of list');
     final List res = fill(shapee[0], shapee[1], true);
     for (var i = 0; i < shapee[0]; i++) {
       for (var j = 0; j < shapee[1]; j++) {
@@ -377,7 +383,7 @@ class Matrix2d {
             }
           }
         } catch (e) {
-          throw ('Sorry can\'t compare string with number');
+          throw new Exception('Sorry can\'t compare string with number');
         }
       }
     }
@@ -422,8 +428,81 @@ class Matrix2d {
       if (shape1[1] == shape2[1]) {
         return list1 + list2;
       } else {
-        throw ('all the input array dimensions for the concatenation axis must match exactly');
+        throw new Exception(
+            'all the input array dimensions for the concatenation axis must match exactly');
       }
+    }
+  }
+
+  /// Functions, used to find the maximum value for any given array
+  ///
+  /// axis is null by default to find min values of columns use zero and for rows use 1
+  List min(List list, {int axis}) {
+    try {
+      if (!_checkArray(list)) throw new Exception('Not 2d array');
+      var result = [];
+      if (axis == null) {
+        list = flatten(list);
+        return [_statistical.arrMin(list)];
+      } else if (axis > 1 || axis < 0) {
+        //err
+        throw Exception('Only two axis 0 and 1');
+      } else {
+        if (axis == 1) {
+          for (var i = 0; i < list.length; i++) {
+            if (_isList(list[i])) {
+              result.add(_statistical.arrMin(list[i]));
+            }
+          }
+          return result;
+        } else {
+          list = transpose(list);
+          for (var i = 0; i < list.length; i++) {
+            if (_isList(list[i])) {
+              result.add(_statistical.arrMin(list[i]));
+            }
+          }
+          return result;
+        }
+      }
+    } catch (e) {
+      throw Exception('Only two axis 0 and 1');
+    }
+  }
+
+  /// Functions, used to find the maximum value for any given array
+  ///
+  /// axis is null by default to find max values of columns use zero and for rows use 1
+  List max(List list, {int axis}) {
+    try {
+      if (!_checkArray(list)) throw new Exception('Not 2d array');
+      var result = [];
+      if (axis == null) {
+        list = flatten(list);
+        return [_statistical.arrMax(list)];
+      } else if (axis > 1 || axis < 0) {
+        //err
+        throw new Exception('Only two axis 0 and 1');
+      } else {
+        if (axis == 1) {
+          for (var i = 0; i < list.length; i++) {
+            if (_isList(list[i])) {
+              result.add(_statistical.arrMax(list[i]));
+            }
+          }
+          return result;
+        } else {
+          list = transpose(list);
+          for (var i = 0; i < list.length; i++) {
+            if (_isList(list[i])) {
+              result.add(_statistical.arrMax(list[i]));
+            }
+          }
+          return result;
+        }
+      }
+    } catch (e) {
+      throw new Exception(e);
     }
   }
 }

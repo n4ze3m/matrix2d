@@ -137,4 +137,17 @@ void main() {
 
   final a3 = m2d.concatenate(a2, a1, axis: 1);
   print(a3);
+
+  // min max
+  final numbers = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+  ];
+  print(numbers.min());
+  print(numbers.min(axis: 1));
+  print(numbers.min(axis: 0));
+  print(numbers.max());
+  print(numbers.max(axis: 1));
+  print(numbers.max(axis: 0));
 }

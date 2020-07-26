@@ -37,6 +37,9 @@ Matrix 2D is a lightweight dart library providing a subset of Python's numpy pac
 
 + ```concatenate(listA,listB,{axis})``` Concatenation refers to joining. This function is used to join two arrays of the same shape along a specified axis. The function takes the following parameters.Axis along which arrays have to be joined. Default is 0 *concatenation of n number of arrays comming soon.....*
 
++ `min(list,{axis})` Functions, used to find the minimum value for any given array
+
++ `max(list,{axis})` Functions, used to find the maximum value for any given array
 *As soon as possible, more features will be available.*
 
 ## Examples
@@ -272,6 +275,41 @@ print(anything);
 ```
 
 <hr>
+
+<h2>min max</h2>
+
+```
+ final numbers = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+  ];
+  print(numbers.min());
+  print(numbers.min(axis: 1));
+  print(numbers.min(axis: 0));
+  print(numbers.max());
+  print(numbers.max(axis: 1));
+  print(numbers.max(axis: 0));
+```
+<b>ouput</b>:
+```
+[1]
+
+[1, 4, 7]
+
+[1, 2, 3]
+
+[9]
+
+[3, 6, 9]
+
+[7, 8, 9]
+```
+
+<hr>
+
+for more examples vist [Matrix2d Wiki](https://github.com/BuckthornInc/matrix2d/wiki)
+
 
 ## Contribution 🤓
 
