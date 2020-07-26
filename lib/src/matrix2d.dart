@@ -21,7 +21,7 @@ class Matrix2d {
   bool _checkArray(List list) {
     final flag = _isList(list[0]);
     final length = flag ? list[0].length : 0;
-    for (int i = 0; i < list.length; i++) {
+    for (var i = 0; i < list.length; i++) {
       var tempFlag = _isList(list[i]);
       var tempLength = tempFlag ? list[i].length : 0;
       if (flag != tempFlag || length != tempLength) return false;
@@ -30,7 +30,7 @@ class Matrix2d {
   }
 
   /// For checking multi list
-  _isList(list) => list is List;
+  static bool _isList(list) => list is List;
 
   /// The shape of an array is the number of elements in each dimension.
   ///
@@ -62,11 +62,11 @@ class Matrix2d {
   /// // [1,2,1,2]
   /// ```
   List flatten(List list) {
-    var _shapeCheck = _checkArray(list);
+    final _shapeCheck = _checkArray(list);
     if (!_shapeCheck) throw ('Uneven array dimension');
     List result = [];
-    for (int i = 0; i < list.length; i++) {
-      for (int j = 0; j < list[i].length; j++) {
+    for (var i = 0; i < list.length; i++) {
+      for (var j = 0; j < list[i].length; j++) {
         result.add(list[i][j]);
       }
     }
@@ -81,15 +81,15 @@ class Matrix2d {
   ///// [[1,1],[2,2]]
   ///```
   List transpose(List list) {
-    var _shapeCheck = _checkArray(list);
-    var shape = this.shape(list);
+    final _shapeCheck = _checkArray(list);
+    final shape = this.shape(list);
     if (!_shapeCheck) throw ('Uneven array dimension');
     // todo add zero here
     List temp =
         List.filled(shape[1], 0).map((e) => List.filled(shape[0], 0)).toList();
     ;
-    for (int i = 0; i < shape[1]; i++) {
-      for (int j = 0; j < shape[0]; j++) {
+    for (var i = 0; i < shape[1]; i++) {
+      for (var j = 0; j < shape[0]; j++) {
         temp[i][j] = list[j][i];
       }
     }
@@ -240,9 +240,9 @@ class Matrix2d {
     if (listShape[0] != 1 || listShape[0] == 1) list = this.flatten(list);
     var copy = list.sublist(0);
     list.clear();
-    for (int r = 0; r < row; r++) {
+    for (var r = 0; r < row; r++) {
       List res = [];
-      for (int c = 0; c < column; c++) {
+      for (var c = 0; c < column; c++) {
         var i = r * column + c;
         if (i < copy.length) {
           res.add(copy[i]);
@@ -263,7 +263,7 @@ class Matrix2d {
   linspace(int start, int end, [int number = 50]) {
     List res = [];
     var steps = (end - start) / (number - 1);
-    for (int i = 0; i < number; i++) {
+    for (var i = 0; i < number; i++) {
       res.add(start + steps * i);
     }
     return res;
@@ -292,9 +292,9 @@ class Matrix2d {
       throw ('Currently support 2D operations or put that values inside a list of list');
 
     /// start row loop
-    for (int i = 0; i < shape[0]; i++) {
+    for (var i = 0; i < shape[0]; i++) {
       /// start column loops
-      for (int j = 0; j < shape[1]; j++) {
+      for (var j = 0; j < shape[1]; j++) {
         /// compare row to column
         if (i == j) {
           /// if true add list value to initialized list
@@ -335,8 +335,8 @@ class Matrix2d {
     if (shapee.length < 2)
       throw ('Currently support 2D operations or put that values inside a list of list');
     final List res = this.fill(shapee[0], shapee[1], true);
-    for (int i = 0; i < shapee[0]; i++) {
-      for (int j = 0; j < shapee[1]; j++) {
+    for (var i = 0; i < shapee[0]; i++) {
+      for (var j = 0; j < shapee[1]; j++) {
         try {
           var val = list[i][j];
           if (operations == operatns[0]) {

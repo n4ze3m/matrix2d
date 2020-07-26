@@ -4,3 +4,4 @@ library matrix2d;
 /// The library was developed, documented, and published by
 /// [Jose Gracia Mccausland](https://twitter.com/juveaj) and [Muhammed Nazeem](https://twitter.com/JuventusRuling)
 export 'src/matrix2d.dart';
+export 'src/extension/extension.dart';

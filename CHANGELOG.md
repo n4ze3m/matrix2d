@@ -1,3 +1,6 @@
+## 0.0.4
++ added extension support on list or matrix
+
 ## 0.0.3
 + new README.md
 

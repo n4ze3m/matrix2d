@@ -7,19 +7,16 @@ void main() {
     [1, 2]
   ];
   // Shape
-  var shape = m2d.shape(list);
-  print(shape);
+  print(list.shape);
 
   // flatten
-  var flat = m2d.flatten(list);
-  print(flat);
+  print(list.flatten);
 
   // transpose
-  var transpose = m2d.transpose(list);
-  print(transpose);
+  print(list.transpose);
 
   // addition
-  var add = m2d.addition([
+  final add = m2d.addition([
     [1, 1],
     [1, 1]
   ], [
@@ -29,7 +26,7 @@ void main() {
   print(add);
 
   // subtration
-  var sub = m2d.subtraction([
+  final sub = m2d.subtraction([
     [1, 1],
     [1, 1]
   ], [
@@ -40,7 +37,7 @@ void main() {
 
   // division
 
-  var div = m2d.division([
+  final div = m2d.division([
     [1, 1],
     [1, 1]
   ], [
@@ -51,7 +48,7 @@ void main() {
 
   // dot operation
 
-  var dot = m2d.dot([
+  final dot = m2d.dot([
     [1, 2],
     [3, 4]
   ], [
@@ -62,51 +59,48 @@ void main() {
 
   // arange
 
-  var arange = m2d.arange(10);
+  final arange = m2d.arange(10);
   print(arange);
 
   // zeros
 
-  var zeros = m2d.zeros(2, 2);
+  final zeros = m2d.zeros(2, 2);
   print(zeros);
 
   //ones
 
-  var ones = m2d.ones(3, 3);
+  final ones = m2d.ones(3, 3);
   print(ones);
 
   //sum
 
-  var sum = m2d.sum([
+  final sum = [
     [2, 2],
     [2, 2]
-  ]);
-  print(sum);
+  ];
+  print(sum.sum);
 
   // reshape
-  var reshape = m2d.reshape([
-    [0, 1, 2, 3, 4, 5, 6, 7]
-  ], 4, 2);
-  print(reshape);
+  final array = [[0, 1, 2, 3, 4, 5, 6, 7]];
+  print(array.reshape(4,2));
 
   // linspace
-  var linspace = m2d.linspace(2, 3, 5);
+  final linspace = m2d.linspace(2, 3, 5);
   print(linspace);
 
   // diagonal
-  var arr = [
+  final arr = [
     [1, 1, 1],
     [2, 2, 2],
     [3, 3, 3]
   ];
-  var diagonal = m2d.diagonal(arr);
-  print(diagonal);
+  print(arr.diagonal);
 
   //fill
-  var fill = m2d.fill(3, 3, 'matrix2d');
+  final fill = m2d.fill(3, 3, 'matrix2d');
   print(fill);
 
   // compare object
-  var compare = m2d.compareobject(arr, '>', 2);
+  final compare = m2d.compareobject(arr, '>', 2);
   print(compare);
 }

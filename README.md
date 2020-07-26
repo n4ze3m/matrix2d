@@ -43,8 +43,7 @@ Matrix 2D a lightweight dart library providing a subset of Python's numpy packag
 
 ```
 List list = [[1, 2],[1, 2]];
-var shape = m2d.shape(list);
-print(shape);
+print(list.shape);
 ```
 <b>ouput</b>:
 ```
@@ -56,8 +55,7 @@ print(shape);
 
 ```
 List list = [[1, 2],[1, 2]];
-var flatten = m2d.flatten(list);
-print(flatten);
+print(list.flatten);
 ```
 <b>ouput</b>:
 ```
@@ -68,8 +66,7 @@ print(flatten);
 
 ```
 List list = [[1, 2],[1, 2]];
-var transpose = m2d.transpose(list);
-print(transpose);
+print(list.transpose);
 ```
 <b>ouput</b>:
 ```
@@ -155,9 +152,9 @@ print(sum);
 <h2>reshape</h2>
 
 ```
-var list = [[0, 1, 2, 3, 4, 5, 6, 7]];
-var reshape = m2d.reshape(list,2,4);
-print(reshape);
+List list = [[0, 1, 2, 3, 4, 5, 6, 7]];
+list = list.reshape(2,4);
+print(list);
 ```
 <b>ouput</b>:
 ```
@@ -178,9 +175,8 @@ print(linspace);
 <h2>diagonal</h2>
 
 ```
-var list = [[1,1,1],[2,2,2],[3,3,3]];
-var diagonal = m2d.diagonal(list);
-print(diagonal);
+List list = [[1,1,1],[2,2,2],[3,3,3]];
+print(list.diagonal);
 ```
 <b>ouput</b>:
 ```
