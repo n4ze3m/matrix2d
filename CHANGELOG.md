@@ -1,3 +1,5 @@
+## 0.0.6
++ small bugs fixed
 ## 0.0.5
 + added  2d matrix concatenate function
 

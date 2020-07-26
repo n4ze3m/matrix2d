@@ -35,7 +35,7 @@ Matrix 2D is a lightweight dart library providing a subset of Python's numpy pac
 
 + ```compareobject(list,operation,obj)``` compare values inside an array with given object and operations. function will return a  new boolen array
 
-+ ```concatenate(listA,listB,{axis})``` Concatenation refers to joining. This function is used to join two or more arrays of the same shape along a specified axis. The function takes the following parameters note: Axis along which arrays have to be joined. Default is 0
++ ```concatenate(listA,listB,{axis})``` Concatenation refers to joining. This function is used to join two arrays of the same shape along a specified axis. The function takes the following parameters.Axis along which arrays have to be joined. Default is 0 *concatenation of n number of arrays comming soon.....*
 
 *As soon as possible, more features will be available.*
 

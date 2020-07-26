@@ -138,8 +138,8 @@ class Matrix2d {
   /// // [[0.5, Infinity], [0.5, 0.5]]
   /// ```
   List division(List list1, List list2) {
-    var list1Shape = this.shape(list1);
-    var list2Shape = this.shape(list2);
+    var list1Shape = shape(list1);
+    var list2Shape = shape(list2);
     if (list1Shape.toString() != list2Shape.toString()) {
       throw ('operands could not be broadcast together with shapes $list1Shape $list2Shape');
     }
@@ -155,10 +155,10 @@ class Matrix2d {
   /////[[37, 40], [85, 92]]
   ///```
   List dot(List list1, List list2) {
-    if (!this._checkArray(list1) || !this._checkArray(list1))
+    if (!_checkArray(list1) || !_checkArray(list1))
       throw ('Uneven array dimension');
-    var list1Shape = this.shape(list1);
-    var list2Shape = this.shape(list2);
+    var list1Shape = shape(list1);
+    var list2Shape = shape(list2);
     if (list1Shape.length < 2 || list2Shape.length < 2)
       throw ('Currently support 2D operations or put that values inside a list of list');
 
@@ -223,8 +223,8 @@ class Matrix2d {
   /// //8
   ///```
   sum(List list) {
-    var listShape = this.shape(list);
-    if (listShape[0] != 1 || listShape[0] == 1) list = this.flatten(list);
+    var listShape = shape(list);
+    if (listShape[0] != 1 || listShape[0] == 1) list = flatten(list);
     return _statistical.arrSum(list);
   }
 
@@ -236,8 +236,8 @@ class Matrix2d {
   /////[[0, 1, 2, 3], [4, 5, 6, 7]]
   ///```
   reshape(List list, int row, int column) {
-    var listShape = this.shape(list);
-    if (listShape[0] != 1 || listShape[0] == 1) list = this.flatten(list);
+    var listShape = shape(list);
+    if (listShape[0] != 1 || listShape[0] == 1) list = flatten(list);
     var copy = list.sublist(0);
     list.clear();
     for (var r = 0; r < row; r++) {
@@ -327,14 +327,14 @@ class Matrix2d {
   /// ```
   List compareobject(List list, String operations, object) {
     /// get shapes
-    final shapee = this.shape(list);
+    final shapee = shape(list);
     var operatns = ['>', '<', '>=', '<=', '==', '!='];
     if (!_checkArray(list)) throw ('Uneven array dimension');
     if (!operatns.contains(operations))
       throw ('Current operation is not support');
     if (shapee.length < 2)
       throw ('Currently support 2D operations or put that values inside a list of list');
-    final List res = this.fill(shapee[0], shapee[1], true);
+    final List res = fill(shapee[0], shapee[1], true);
     for (var i = 0; i < shapee[0]; i++) {
       for (var j = 0; j < shapee[1]; j++) {
         try {
@@ -384,17 +384,17 @@ class Matrix2d {
     return res;
   }
 
-  /// Concatenation refers to joining. This function is used to join two or more arrays of the same shape along a specified axis. The function takes the following parameters
+  /// Concatenation refers to joining. This function is used to join two arrays of the same shape along a specified axis. The function takes the following parameters
   /// note: Axis along which arrays have to be joined. Default is 0
-  /// 
+  /// note 2: concatenation of n number of arrays comming soon.....
   /// for example please check [github.com/BuckthornInc/matrix2d](https://github.com/BuckthornInc/matrix2d)
   List concatenate(List list1, list2, {int axis = 0}) {
     if (axis > 1 || axis < 0) throw ('axis only support 0 and 1');
-    var shape1 = this.shape(list1);
-    var shape2 = this.shape(list2);
+    var shape1 = shape(list1);
+    var shape2 = shape(list2);
     if (axis == 1) {
       if (shape1[0] == shape2[0]) {
-        var temp = this.fill(shape1[0], shape1[1] + shape2[1], null);
+        var temp = fill(shape1[0], shape1[1] + shape2[1], null);
         var jwal = shape1[1] >= shape2[1] ? shape1[1] : shape2[1];
         for (var i = 0; i < shape1[0]; i++) {
           for (var j = 0; j < jwal; j++) {
