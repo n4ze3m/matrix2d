@@ -1,3 +1,7 @@
+## 0.0.8
+
++ big update
+
 ## 0.0.7
 
 + matrix `min()`, `max()` operations added

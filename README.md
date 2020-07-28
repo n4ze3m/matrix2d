@@ -46,7 +46,7 @@ Matrix 2D is a lightweight dart library providing a subset of Python's numpy pac
 
 <h2>shape</h2>
 
-```
+```dart
 List list = [[1, 2],[1, 2]];
 print(list.shape);
 ```
@@ -58,7 +58,7 @@ print(list.shape);
 
 <h2>flatten</h2>
 
-```
+```dart
 List list = [[1, 2],[1, 2]];
 print(list.flatten);
 ```
@@ -69,7 +69,7 @@ print(list.flatten);
 <hr>
 <h2>transpose</h2>
 
-```
+```dart
 List list = [[1, 2],[1, 2]];
 print(list.transpose);
 ```
@@ -80,7 +80,7 @@ print(list.transpose);
 <hr>
 <h2>addition</h2>
 
-```
+```dart
 List list1 = [[1, 1],[1, 1]];
 List list2 = [[2, 2],[2, 2]];
 var addition = m2d.addition(list1,list2);
@@ -93,7 +93,7 @@ print(addition);
 <hr>
 <h2>subtraction</h2>
 
-```
+```dart
 List list1 = [[1, 1],[1, 1]];
 List list2 = [[2, 2],[2, 2]];
 var subtraction = m2d.subtraction(list1,list2);
@@ -106,7 +106,7 @@ print(subtraction);
 <hr>
 <h2>division</h2>
 
-```
+```dart
 List list1 = [[1, 1],[1, 1]];
 List list2 = [[2, 2],[0, 2]];
 var division = m2d.subtraction(division,list2);
@@ -119,7 +119,7 @@ print(division);
 <hr>
 <h2>dot operation</h2>
 
-```
+```dart
 List list1 = [[1,2],[3,4]];
 List list2 = [[11,12],[13,14]];
 var dot = m2d.dot(division,list2);
@@ -132,7 +132,7 @@ print(dot);
 <hr>
 <h2>arange</h2>
 
-```
+```dart
 var arange = m2d.arange(8);
 print(arange);
 ```
@@ -144,7 +144,7 @@ print(arange);
 
 <h2>sum</h2>
 
-```
+```dart
 var list = [[2,2],[2,2]];
 var sum = m2d.sum(list);
 print(sum);
@@ -156,7 +156,7 @@ print(sum);
 <hr>
 <h2>reshape</h2>
 
-```
+```dart
 List list = [[0, 1, 2, 3, 4, 5, 6, 7]];
 list = list.reshape(2,4);
 print(list);
@@ -168,7 +168,7 @@ print(list);
 <hr>
 <h2>linspace</h2>
 
-```
+```dart
 var linspace = m2d.linspace(2, 3, 5);
 print(linspace);
 ```
@@ -179,7 +179,7 @@ print(linspace);
 <hr>
 <h2>diagonal</h2>
 
-```
+```dart
 List list = [[1,1,1],[2,2,2],[3,3,3]];
 print(list.diagonal);
 ```
@@ -190,7 +190,7 @@ print(list.diagonal);
 <hr>
 <h2>compareobject</h2>
 
-```
+```dart
 var list = [[1,1,1],[2,2,2],[3,3,3]];
 var compare = m2d.compare(list,'>',2);
 print(compare);
@@ -204,7 +204,7 @@ print(compare);
 
 <h5>axis 0</h5>
 
-```
+```dart
 final l1 = [
     [1, 1, 1],
     [1, 1, 1],
@@ -231,7 +231,7 @@ final l1 = [
 ```
 <h5>axis 1</h5>
 
-```
+```dart
 final a1 = [
     [1, 1, 1, 1],
     [1, 1, 1, 1],
@@ -317,12 +317,11 @@ Happy 😍 to recieve or provide contributions related to this package.
 
 ## Features and bugs 🐛
 
-Please file feature requests and bugs at the [issue tracker](https://github.com/BuckthornInc/matrix2d/issues).
+Please file feature requests and bugs at the [issue tracker](https://github.com/buckthorndev/matrix2d/issues).
 
 ## Contact
 
 if you have any questions , feel free to wite us on
 
-+ [Gmail](mailto:buckthorninc@gmail.com)
 
-+ [Twitter](https://twitter.com/buckthorninc)
++ [Twitter](https://twitter.com/buckthorndev)

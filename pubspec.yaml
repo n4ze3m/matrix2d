@@ -1,7 +1,7 @@
 name: matrix2d
 description: A numpy-like package for mathematical 2d array functions and manipulations for dart
 version: 0.0.7
-homepage: 'https://github.com/BuckthornInc/matrix2d'
+homepage: 'https://github.com/buckthorndev/matrix2d'
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
