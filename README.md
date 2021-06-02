@@ -308,7 +308,7 @@ print(anything);
 
 <hr>
 
-for more examples vist [Matrix2d Wiki](https://github.com/BuckthornInc/matrix2d/wiki)
+for more examples vist [Matrix2d Wiki](https://github.com/buckthorndev/matrix2d/wiki)
 
 
 ## Contribution 🤓
@@ -325,3 +325,5 @@ if you have any questions , feel free to wite us on
 
 
 + [Twitter](https://twitter.com/buckthorndev)
+
++ [Mail](mailto:buckthorndev@gmail.com)

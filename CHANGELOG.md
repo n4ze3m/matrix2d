@@ -1,3 +1,7 @@
+## 1.0.0
+
+Null and Safety added
+
 ## 0.0.8
 
 + big update
