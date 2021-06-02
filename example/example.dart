@@ -2,7 +2,7 @@ import 'package:matrix2d/matrix2d.dart';
 
 void main() {
   Matrix2d m2d = Matrix2d();
-  List list = [
+  var list = [
     [1, 2],
     [1, 2]
   ];
@@ -16,7 +16,7 @@ void main() {
   print(list.transpose);
 
   // addition
-  final add = m2d.addition([
+  var add = m2d.addition([
     [1, 1],
     [1, 1]
   ], [
@@ -26,7 +26,7 @@ void main() {
   print(add);
 
   // subtration
-  final sub = m2d.subtraction([
+  var sub = m2d.subtraction([
     [1, 1],
     [1, 1]
   ], [
@@ -37,7 +37,7 @@ void main() {
 
   // division
 
-  final div = m2d.division([
+  var div = m2d.division([
     [1, 1],
     [1, 1]
   ], [
@@ -48,7 +48,7 @@ void main() {
 
   // dot operation
 
-  final dot = m2d.dot([
+  var dot = m2d.dot([
     [1, 2],
     [3, 4]
   ], [
@@ -59,39 +59,39 @@ void main() {
 
   // arange
 
-  final arange = m2d.arange(10);
+  var arange = m2d.arange(10);
   print(arange);
 
   // zeros
 
-  final zeros = m2d.zeros(2, 2);
+  var zeros = m2d.zeros(2, 2);
   print(zeros);
 
   //ones
 
-  final ones = m2d.ones(3, 3);
+  var ones = m2d.ones(3, 3);
   print(ones);
 
   //sum
 
-  final sum = [
+  var sum = [
     [2, 2],
     [2, 2]
   ];
   print(sum.sum);
 
   // reshape
-  final array = [
+  var array = [
     [0, 1, 2, 3, 4, 5, 6, 7]
   ];
   print(array.reshape(4, 2));
 
   // linspace
-  final linspace = m2d.linspace(2, 3, 5);
+  var linspace = m2d.linspace(2, 3, 5);
   print(linspace);
 
   // diagonal
-  final arr = [
+  var arr = [
     [1, 1, 1],
     [2, 2, 2],
     [3, 3, 3]
@@ -99,47 +99,47 @@ void main() {
   print(arr.diagonal);
 
   //fill
-  final fill = m2d.fill(3, 3, 'matrix2d');
+  var fill = m2d.fill(3, 3, 'matrix2d');
   print(fill);
 
   // compare object
-  final compare = m2d.compareobject(arr, '>', 2);
+  var compare = m2d.compareobject(arr, '>', 2);
   print(compare);
 
   // concatenate
 
   // axis 0
-  final l1 = [
+  var l1 = [
     [1, 1, 1],
     [1, 1, 1],
     [1, 1, 1]
   ];
-  final l2 = [
+  var l2 = [
     [0, 0, 0],
     [0, 0, 0],
     [0, 0, 0],
     [0, 0, 0],
   ];
-  final l3 = m2d.concatenate(l1, l2);
+  var l3 = m2d.concatenate(l1, l2);
   print(l3);
 
   // axis 1
-  final a1 = [
+  var a1 = [
     [1, 1, 1, 1],
     [1, 1, 1, 1],
     [1, 1, 1, 1]
   ];
-  final a2 = [
+  var a2 = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   ];
 
-  final a3 = m2d.concatenate(a2, a1, axis: 1);
+  var a3 = m2d.concatenate(a2, a1, axis: 1);
   print(a3);
 
   // min max
-  final numbers = [
+  var numbers = [
     [1, 2, 3],
     [4, 5, 6],
     [7, 8, 9]

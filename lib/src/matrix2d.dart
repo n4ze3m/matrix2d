@@ -1,5 +1,4 @@
 import 'util/util.dart';
-import 'package:statistical_dart/statistical_dart.dart';
 
 /// Dart package for 2D Matrix or 2D array operations
 ///
@@ -12,15 +11,12 @@ class Matrix2d {
   /// ```
   /// Matrix2d m2d = Matrix2d();
   /// ```
-  Matrix2d();
-
-  /// using statistical package for array sum etc..
-  final _statistical = Statistical();
+  const Matrix2d();
 
   /// Check the given list is 2D array
   bool _checkArray(List list) {
-    final flag = _isList(list[0]);
-    final length = flag ? list[0].length : 0;
+    var flag = _isList(list[0]);
+    var length = flag ? list[0].length : 0;
     for (var i = 0; i < list.length; i++) {
       var tempFlag = _isList(list[i]);
       var tempLength = tempFlag ? list[i].length : 0;
@@ -169,13 +165,13 @@ class Matrix2d {
     if (list1Shape[1] != list2Shape[0])
       throw new Exception('Shapes not aligned');
     // todo needs to use zero fun
-    var result = new List.filled(list1.length, 0)
-        .map((e) => List.filled(list2[0].length, 0))
+    var result = new List<num>.filled(list1.length, 0)
+        .map((e) => List<num>.filled(list2[0].length, 0))
         .toList();
     // list1 x list2 matrix
-    for (int r = 0; r < list1.length; r++) {
-      for (int c = 0; c < list2[0].length; c++) {
-        for (int i = 0; i < list1[0].length; i++) {
+    for (var r = 0; r < list1.length; r++) {
+      for (var c = 0; c < list2[0].length; c++) {
+        for (var i = 0; i < list1[0].length; i++) {
           result[r][c] += list1[r][i] * list2[i][c];
         }
       }
@@ -190,7 +186,7 @@ class Matrix2d {
   ///print(arange);
   /////[[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]]
   ///```
-  List arange(stop, [int start, int steps]) {
+  List arange(int stop, [int? start, int? steps]) {
     if (steps == null) steps = 1;
     if (start == null) start = 0;
     List result = [];
@@ -230,7 +226,7 @@ class Matrix2d {
   sum(List list) {
     var listShape = shape(list);
     if (listShape[0] != 1 || listShape[0] == 1) list = flatten(list);
-    return _statistical.arrSum(list);
+    return utlArrSum(list);
   }
 
   /// Reshaping means changing the shape of an array.
@@ -274,7 +270,6 @@ class Matrix2d {
     return res;
   }
 
-  //0.02
   ///To find a diagonal element from a given matrix and gives output as one dimensional matrix.
   ///
   ///```
@@ -312,14 +307,14 @@ class Matrix2d {
     return [res];
   }
 
-  /// Just like `zeros()` and `ones` this function will return a new array of given shape, with given object(anything btw strings too)
+  /// Just like `zeros()` and `ones()` this function will return a new array of given shape, with given object(anything btw strings too)
   ///
   ///```
   ///var fill = m2d.fill(2,2,true);
   ///print(fill);
   ///// [[true,true],[true,true]]
   ///```
-  fill(int row, int cols, value) =>
+  List fill(int row, int cols, value) =>
       List.filled(row, value).map((e) => List.filled(cols, value)).toList();
 
   /// compare values inside an array with given object and operations. function will return a  new boolen array
@@ -331,8 +326,7 @@ class Matrix2d {
   /////[[false, false, false], [false, false, false], [true, true, true]]
   /// ```
   List compareobject(List list, String operations, object) {
-    /// get shapes
-    final shapee = shape(list);
+    var shapee = shape(list);
     var operatns = ['>', '<', '>=', '<=', '==', '!='];
     if (!_checkArray(list)) throw new Exception('Uneven array dimension');
     if (!operatns.contains(operations))
@@ -340,7 +334,7 @@ class Matrix2d {
     if (shapee.length < 2)
       throw new Exception(
           'Currently support 2D operations or put that values inside a list of list');
-    final List res = fill(shapee[0], shapee[1], true);
+    var res = fill(shapee[0], shapee[1], true);
     for (var i = 0; i < shapee[0]; i++) {
       for (var j = 0; j < shapee[1]; j++) {
         try {
@@ -393,7 +387,7 @@ class Matrix2d {
   /// Concatenation refers to joining. This function is used to join two arrays of the same shape along a specified axis. The function takes the following parameters
   /// note: Axis along which arrays have to be joined. Default is 0
   /// note 2: concatenation of n number of arrays comming soon.....
-  /// for example please check [github.com/BuckthornInc/matrix2d](https://github.com/BuckthornInc/matrix2d)
+  /// for example please check [github.com/buckthorndev/matrix2d](https://github.com/BuckthornInc/matrix2d)
   List concatenate(List list1, list2, {int axis = 0}) {
     if (axis > 1 || axis < 0) throw ('axis only support 0 and 1');
     var shape1 = shape(list1);
@@ -437,13 +431,13 @@ class Matrix2d {
   /// Functions, used to find the maximum value for any given array
   ///
   /// axis is null by default to find min values of columns use zero and for rows use 1
-  List min(List list, {int axis}) {
+  List min(List list, {int? axis}) {
     try {
       if (!_checkArray(list)) throw new Exception('Not 2d array');
       var result = [];
       if (axis == null) {
         list = flatten(list);
-        return [_statistical.arrMin(list)];
+        return [utlArrMin(list)];
       } else if (axis > 1 || axis < 0) {
         //err
         throw Exception('Only two axis 0 and 1');
@@ -451,7 +445,7 @@ class Matrix2d {
         if (axis == 1) {
           for (var i = 0; i < list.length; i++) {
             if (_isList(list[i])) {
-              result.add(_statistical.arrMin(list[i]));
+              result.add(utlArrMin(list[i]));
             }
           }
           return result;
@@ -459,7 +453,7 @@ class Matrix2d {
           list = transpose(list);
           for (var i = 0; i < list.length; i++) {
             if (_isList(list[i])) {
-              result.add(_statistical.arrMin(list[i]));
+              result.add(utlArrMin(list[i]));
             }
           }
           return result;
@@ -473,21 +467,20 @@ class Matrix2d {
   /// Functions, used to find the maximum value for any given array
   ///
   /// axis is null by default to find max values of columns use zero and for rows use 1
-  List max(List list, {int axis}) {
+  List max(List list, {int? axis}) {
     try {
       if (!_checkArray(list)) throw new Exception('Not 2d array');
       var result = [];
       if (axis == null) {
         list = flatten(list);
-        return [_statistical.arrMax(list)];
+        return [arrMax(list)];
       } else if (axis > 1 || axis < 0) {
-        //err
         throw new Exception('Only two axis 0 and 1');
       } else {
         if (axis == 1) {
           for (var i = 0; i < list.length; i++) {
             if (_isList(list[i])) {
-              result.add(_statistical.arrMax(list[i]));
+              result.add(arrMax(list[i]));
             }
           }
           return result;
@@ -495,7 +488,7 @@ class Matrix2d {
           list = transpose(list);
           for (var i = 0; i < list.length; i++) {
             if (_isList(list[i])) {
-              result.add(_statistical.arrMax(list[i]));
+              result.add(arrMax(list[i]));
             }
           }
           return result;

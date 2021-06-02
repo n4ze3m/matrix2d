@@ -72,3 +72,18 @@ utldivition(List l1, List l2) {
   }
   return res;
 }
+
+/// util array sum
+num utlArrSum(List numbers) => numbers.reduce((a, b) => a + b);
+
+/// util array min
+num utlArrMin(List numbers) {
+  numbers.sort();
+  return numbers[0];
+}
+
+/// util array max
+num arrMax(List numbers) {
+  numbers.sort();
+  return numbers[numbers.length - 1];
+}
