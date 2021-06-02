@@ -7,7 +7,7 @@ import 'util/util.dart';
 /// ```
 class Matrix2d {
   /// Dart package for 2D Matrix or 2D array operations
-  /// 
+  ///
   /// ```
   /// Matrix2d m2d = Matrix2d();
   /// ```

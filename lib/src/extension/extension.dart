@@ -17,7 +17,7 @@ extension Matrix2dExtension on List {
   List get diagonal => Matrix2d().diagonal(this);
 
   /// Reshaping means changing the shape of an array.
-  List reshape(int row,int column) => Matrix2d().reshape(this, row, column);
+  List reshape(int row, int column) => Matrix2d().reshape(this, row, column);
 
   /// find min value of given matrix
   List min({int? axis}) => Matrix2d().min(this, axis: axis);
