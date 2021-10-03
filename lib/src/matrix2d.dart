@@ -498,4 +498,76 @@ class Matrix2d {
       throw new Exception(e);
     }
   }
+
+  /// Function used to slice two-dimensional arrays
+  ///
+  /// slice(parent array, row_index [start, stop], column_index [start, stop])
+  /// ```dart
+  /// var array = [[1, 2, 3, 4, 5],[6, 7, 8, 9, 10]];
+  ///
+  /// print(m2d.slice(array, [0, 2], [1, 4]))
+  ///
+  /// // output  [[2,3,4], [7,8,9]]
+  /// ```
+  List slice(List<List> array, List<int> row_index, [List<int>? column_index]) {
+    var result = [];
+    try {
+      if (row_index.length > 2) {
+        throw Exception(
+            'row_index only containing the elements between start and end.');
+      }
+      // slice parent array
+      if (row_index.length != 0) {
+        var _start, _stop;
+        if (row_index.length == 2) {
+          _start = row_index[0];
+          _stop = row_index[1];
+          if (_start >= row_index.length ||
+              _stop >= row_index.length && _start >= row_index.length) {
+            array = [];
+          } else if (_stop >= row_index.length && _start < row_index.length) {
+            array = array.sublist(_start);
+          } else {
+            array = array.sublist(_start, _stop);
+          }
+        } else {
+          var _index = row_index[0];
+          array = [array[_index]];
+        }
+      }
+      // slice child & check if column_index is null or not
+      // if null return as
+      if (column_index != null) {
+        if (array.length > 0) {
+          if (column_index.length != 0) {
+            if (column_index.length == 1) {
+              for (var i = 0; i < array.length; i++) {
+                result.add(array[i][column_index[0]]);
+              }
+            } else {
+              if (column_index.length == 2) {
+                for (var i = 0; i < array.length; i++) {
+                  result
+                      .add(array[i].sublist(column_index[0], column_index[1]));
+                }
+              } else {
+                throw Exception(
+                    "wrong number of column index got=${column_index.length} want= 1 or 2");
+              }
+            }
+          } else {
+            result = [];
+          }
+        } else {
+          result = [];
+        }
+      } else {
+        result = array;
+      }
+
+      return result;
+    } catch (e) {
+      throw new Exception(e);
+    }
+  }
 }

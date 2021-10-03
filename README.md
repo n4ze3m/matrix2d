@@ -6,41 +6,44 @@ Matrix 2D is a lightweight dart library providing a subset of Python's numpy pac
 
 ## Operations 😁
 
-- ```addition(listA,listB)``` returns array of sums of corresponding elements of listA and listB of any dimensions.
+- `addition(listA,listB)` returns array of sums of corresponding elements of listA and listB of any dimensions.
 
-- ```subtraction(listA,listB)``` returns array of differences of corresponding elements of listA and listB of any dimensions.
+- `subtraction(listA,listB)` returns array of differences of corresponding elements of listA and listB of any dimensions.
 
-- ```division(listA,listB)``` divides listA by listB and returns new array
+- `division(listA,listB)` divides listA by listB and returns new array
 
-- ```dot(listA,listB)``` Function returns the dot product of two arrays. For 2-D vectors, it is the equivalent to matrix multiplication. For 1-D arrays, it is the inner product of the vectors. For N-dimensional arrays, it is a sum product over the last axis of a and the second-last axis of b.
+- `dot(listA,listB)` Function returns the dot product of two arrays. For 2-D vectors, it is the equivalent to matrix multiplication. For 1-D arrays, it is the inner product of the vectors. For N-dimensional arrays, it is a sum product over the last axis of a and the second-last axis of b.
 
-- ```shape(list)``` returns dimensions of input array if the array is uniform or error otherwise.
+- `shape(list)` returns dimensions of input array if the array is uniform or error otherwise.
 
-- ```flatten(list)``` returns 1-D representation of any shape and any levels of nesting of list array.
+- `flatten(list)` returns 1-D representation of any shape and any levels of nesting of list array.
 
-- ```transpose(list)``` Reverse the axes of an array and returns the modified array
+- `transpose(list)` Reverse the axes of an array and returns the modified array
 
-- ```arange(start, stop, steps)``` returns evenly spaced values within the half-open interval ```[start, stop)``` with optional steps argument.
+- `arange(start, stop, steps)` returns evenly spaced values within the half-open interval `[start, stop)` with optional steps argument.
 
-- ```zeros(row,cols)``` Return a new array of given shape and type, with zeros
+- `zeros(row,cols)` Return a new array of given shape and type, with zeros
 
-- ```ones(row,cols)``` Return a new array of given shape and type, with ones
+- `ones(row,cols)` Return a new array of given shape and type, with ones
 
-- ```sum(list)``` Function returns the sum of array elements
+- `sum(list)` Function returns the sum of array elements
 
-- ```reshape(list)```Reshaping means changing the shape of an array.
+- `reshape(list)`Reshaping means changing the shape of an array.
 
-- ```diagonal(list)``` To find a diagonal element from a given matrix and gives output as one dimensional matrix.
-- ```fill(row,cols,object)``` Just like `zeros()` and `ones` this function will return a new array of given shape, with given object(anything btw strings too)
+- `diagonal(list)` To find a diagonal element from a given matrix and gives output as one dimensional matrix.
+- `fill(row,cols,object)` Just like `zeros()` and `ones` this function will return a new array of given shape, with given object(anything btw strings too)
 
-+ ```compareobject(list,operation,obj)``` compare values inside an array with given object and operations. function will return a  new boolen array
+* `compareobject(list,operation,obj)` compare values inside an array with given object and operations. function will return a new boolen array
 
-+ ```concatenate(listA,listB,{axis})``` Concatenation refers to joining. This function is used to join two arrays of the same shape along a specified axis. The function takes the following parameters.Axis along which arrays have to be joined. Default is 0 *concatenation of n number of arrays comming soon.....*
+* `concatenate(listA,listB,{axis})` Concatenation refers to joining. This function is used to join two arrays of the same shape along a specified axis. The function takes the following parameters.Axis along which arrays have to be joined. Default is 0 _concatenation of n number of arrays comming soon....._
 
-+ `min(list,{axis})` Functions, used to find the minimum value for any given array
+* `min(list,{axis})` Functions, used to find the minimum value for any given array
 
-+ `max(list,{axis})` Functions, used to find the maximum value for any given array
-*As soon as possible, more features will be available.*
+* `max(list,{axis})` Functions, used to find the maximum value for any given array
+
+* `slice(list (List<List>), row_index [start, stop*], column_index [start, stop*]*)` Function used to slice two-dimensional arrays . (_column_index_ and _stop_ not required )
+
+_As soon as possible, more features will be available._
 
 ## Examples
 
@@ -50,10 +53,13 @@ Matrix 2D is a lightweight dart library providing a subset of Python's numpy pac
 List list = [[1, 2],[1, 2]];
 print(list.shape);
 ```
+
 <b>ouput</b>:
-```
+
+```cmd
 [2,2]
 ```
+
 <hr>
 
 <h2>flatten</h2>
@@ -62,10 +68,13 @@ print(list.shape);
 List list = [[1, 2],[1, 2]];
 print(list.flatten);
 ```
+
 <b>ouput</b>:
-```
+
+```cmd
 [1,2,1,2]
 ```
+
 <hr>
 <h2>transpose</h2>
 
@@ -73,10 +82,13 @@ print(list.flatten);
 List list = [[1, 2],[1, 2]];
 print(list.transpose);
 ```
+
 <b>ouput</b>:
-```
+
+```cmd
 [[1,1],[2,2]]
 ```
+
 <hr>
 <h2>addition</h2>
 
@@ -86,10 +98,13 @@ List list2 = [[2, 2],[2, 2]];
 var addition = m2d.addition(list1,list2);
 print(addition);
 ```
+
 <b>ouput</b>:
-```
+
+```cmd
 [[3,3],[3,3]]
 ```
+
 <hr>
 <h2>subtraction</h2>
 
@@ -99,10 +114,13 @@ List list2 = [[2, 2],[2, 2]];
 var subtraction = m2d.subtraction(list1,list2);
 print(subtraction);
 ```
+
 <b>ouput</b>:
-```
+
+```cmd
 [[-1,-1],[-1,-1]]
 ```
+
 <hr>
 <h2>division</h2>
 
@@ -112,10 +130,13 @@ List list2 = [[2, 2],[0, 2]];
 var division = m2d.subtraction(division,list2);
 print(division);
 ```
+
 <b>ouput</b>:
-```
+
+```cmd
 [[0.5,Infinity],[0.5,0.5]]
 ```
+
 <hr>
 <h2>dot operation</h2>
 
@@ -125,10 +146,13 @@ List list2 = [[11,12],[13,14]];
 var dot = m2d.dot(division,list2);
 print(dot);
 ```
+
 <b>ouput</b>:
-```
+
+```cmd
 [[37, 40], [85, 92]]
 ```
+
 <hr>
 <h2>arange</h2>
 
@@ -136,10 +160,13 @@ print(dot);
 var arange = m2d.arange(8);
 print(arange);
 ```
+
 <b>ouput</b>:
-```
+
+```cmd
 [[0,1,2,3,4,5,6,7,8]]
 ```
+
 <hr>
 
 <h2>sum</h2>
@@ -149,10 +176,13 @@ var list = [[2,2],[2,2]];
 var sum = m2d.sum(list);
 print(sum);
 ```
+
 <b>ouput</b>:
-```
+
+```cmd
 8
 ```
+
 <hr>
 <h2>reshape</h2>
 
@@ -161,10 +191,13 @@ List list = [[0, 1, 2, 3, 4, 5, 6, 7]];
 list = list.reshape(2,4);
 print(list);
 ```
+
 <b>ouput</b>:
-```
+
+```cmd
 [[0, 1, 2, 3], [4, 5, 6, 7]]
 ```
+
 <hr>
 <h2>linspace</h2>
 
@@ -172,10 +205,13 @@ print(list);
 var linspace = m2d.linspace(2, 3, 5);
 print(linspace);
 ```
+
 <b>ouput</b>:
-```
+
+```cmd
 [2.0, 2.25, 2.5, 2.75, 3.0]
 ```
+
 <hr>
 <h2>diagonal</h2>
 
@@ -183,10 +219,13 @@ print(linspace);
 List list = [[1,1,1],[2,2,2],[3,3,3]];
 print(list.diagonal);
 ```
+
 <b>ouput</b>:
-```
+
+```cmd
 [1,2,3]
 ```
+
 <hr>
 <h2>compareobject</h2>
 
@@ -195,10 +234,13 @@ var list = [[1,1,1],[2,2,2],[3,3,3]];
 var compare = m2d.compare(list,'>',2);
 print(compare);
 ```
+
 <b>ouput</b>:
-```
+
+```cmd
 [[false, false, false], [false, false, false], [true, true, true]]
 ```
+
 <hr>
 <h2>concatenate</h2>
 
@@ -219,16 +261,19 @@ final l1 = [
   final l3 = m2d.concatenate(l1, l2);
   print(l3);
 ```
+
 <b>ouput</b>:
-```
-[[1, 1, 1], 
-[1, 1, 1], 
-[1, 1, 1], 
-[0, 0, 0], 
+
+```cmd
+[[1, 1, 1],
+[1, 1, 1],
+[1, 1, 1],
 [0, 0, 0],
-[0, 0, 0], 
+[0, 0, 0],
+[0, 0, 0],
 [0, 0, 0]]
 ```
+
 <h5>axis 1</h5>
 
 ```dart
@@ -246,16 +291,19 @@ final a1 = [
   final a3 = m2d.concatenate(a2, a1, axis: 1);
   print(a3);
 ```
+
 <b>ouput</b>:
-```
-[[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1], 
-[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1], 
+
+```cmd
+[[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1],
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1],
 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1]]
 ```
+
 <hr>
 <h2>zeros,ones and fill</h2>
 
-```
+```dart
 var zeros = m2d.zeros(2,2);
 print(zeros);
 
@@ -265,8 +313,10 @@ print(ones);
 var anything = m2d.fill(2,2,'i love dart');
 print(anything);
 ```
+
 <b>ouput</b>:
-```
+
+```cmd
 [[0,0],[1,1]]
 
 [[1,1],[1,1]]
@@ -278,7 +328,7 @@ print(anything);
 
 <h2>min max</h2>
 
-```
+```dart
  final numbers = [
     [1, 2, 3],
     [4, 5, 6],
@@ -291,8 +341,10 @@ print(anything);
   print(numbers.max(axis: 1));
   print(numbers.max(axis: 0));
 ```
+
 <b>ouput</b>:
-```
+
+```cmd
 [1]
 
 [1, 4, 7]
@@ -306,10 +358,29 @@ print(anything);
 [7, 8, 9]
 ```
 
+<h2>slice</h2>
+
+```dart
+
+ var sliceArray = [
+    [1, 2, 3, 4, 5],
+    [6, 7, 8, 9, 10]
+  ];
+
+  var newArray = m2d.slice(sliceArray, [0, 2], [1, 4]);
+  print(newArray);
+
+```
+<b>ouput</b>:
+
+
+```cmd
+[[2, 3, 4],[7, 8, 9]]
+```
+
 <hr>
 
 for more examples vist [Matrix2d Wiki](https://github.com/buckthorndev/matrix2d/wiki)
-
 
 ## Contribution 🤓
 
@@ -321,9 +392,12 @@ Please file feature requests and bugs at the [issue tracker](https://github.com/
 
 ## Contact
 
-if you have any questions , feel free to wite us on
+if you have any questions , feel free to write us on
 
+- [Jose Twitter](https://twitter.com/juveaj)
 
-+ [Twitter](https://twitter.com/buckthorndev)
+- [Nazeem Twitter](https://twitter.com/juventusruling)
 
-+ [Mail](mailto:buckthorndev@gmail.com)
+- [Buckthorn Twitter](https://twitter.com/buckthorndev)
+
+- [Mail](mailto:buckthorndev@gmail.com)

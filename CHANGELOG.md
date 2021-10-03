@@ -1,3 +1,7 @@
+## 1.0.1
+
++ 2d array slicing
+
 ## 1.0.0
 
 Null and Safety added
