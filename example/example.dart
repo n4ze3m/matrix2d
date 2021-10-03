@@ -138,6 +138,15 @@ void main() {
   var a3 = m2d.concatenate(a2, a1, axis: 1);
   print(a3);
 
+  // slice
+  var sliceArray = [
+    [1, 2, 3, 4, 5],
+    [6, 7, 8, 9, 10]
+  ];
+
+  var newArray = m2d.slice(sliceArray, [0, 2], [1, 4]);
+  print(newArray);
+
   // min max
   var numbers = [
     [1, 2, 3],
