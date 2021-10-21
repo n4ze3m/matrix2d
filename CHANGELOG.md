@@ -1,3 +1,7 @@
+## 1.0.2
+
++ fix slice function, update test file (@DavidBrynnHouse)
+
 ## 1.0.1
 
 + 2d array slicing
