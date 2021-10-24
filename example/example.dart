@@ -141,11 +141,12 @@ void main() {
   // slice
   var sliceArray = [
     [1, 2, 3, 4, 5],
+    [6, 7, 8, 9, 10],
     [6, 7, 8, 9, 10]
   ];
 
   var newArray = m2d.slice(sliceArray, [0, 2], [1, 4]);
-  print(newArray);
+  print(" sliced array: ${newArray}");
 
   // min max
   var numbers = [

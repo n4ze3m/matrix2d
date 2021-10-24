@@ -516,55 +516,25 @@ class Matrix2d {
         throw Exception(
             'row_index only containing the elements between start and end.');
       }
-      // slice parent array
-      if (row_index.length != 0) {
-        var _start, _stop;
-        if (row_index.length == 2) {
-          _start = row_index[0];
-          _stop = row_index[1];
-          if (_start >= row_index.length ||
-              _stop >= row_index.length && _start >= row_index.length) {
-            array = [];
-          } else if (_stop >= row_index.length && _start < row_index.length) {
-            array = array.sublist(_start);
+      int rowMin = row_index[0];
+      int rowMax = row_index[1];
+      int counter = 0;
+      array.forEach((List row) {
+        if (rowMin <= counter && counter < rowMax) {
+          if (column_index != null && column_index.length > 1) {
+            result.add(row.getRange(column_index[0], column_index[1]).toList());
+          } else if (column_index == null) {
+            result.add(row);
           } else {
-            array = array.sublist(_start, _stop);
-          }
-        } else {
-          var _index = row_index[0];
-          array = [array[_index]];
-        }
-      }
-      // slice child & check if column_index is null or not
-      // if null return as
-      if (column_index != null) {
-        if (array.length > 0) {
-          if (column_index.length != 0) {
-            if (column_index.length == 1) {
-              for (var i = 0; i < array.length; i++) {
-                result.add(array[i][column_index[0]]);
-              }
+            if (result.isEmpty) {
+              result = [row[column_index[0]]];
             } else {
-              if (column_index.length == 2) {
-                for (var i = 0; i < array.length; i++) {
-                  result
-                      .add(array[i].sublist(column_index[0], column_index[1]));
-                }
-              } else {
-                throw Exception(
-                    "wrong number of column index got=${column_index.length} want= 1 or 2");
-              }
+              result.add(row[column_index[0]]);
             }
-          } else {
-            result = [];
           }
-        } else {
-          result = [];
         }
-      } else {
-        result = array;
-      }
-
+        counter++;
+      });
       return result;
     } catch (e) {
       throw new Exception(e);
