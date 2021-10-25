@@ -394,10 +394,6 @@ Please file feature requests and bugs at the [issue tracker](https://github.com/
 
 if you have any questions , feel free to write us on
 
-- [Jose Twitter](https://twitter.com/juveaj)
-
-- [Nazeem Twitter](https://twitter.com/juventusruling)
-
 - [Buckthorn Twitter](https://twitter.com/buckthorndev)
 
 - [Mail](mailto:buckthorndev@gmail.com)
