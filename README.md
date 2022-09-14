@@ -1,15 +1,13 @@
 # Matrix 2D 🧮
 
-[![Pub](https://img.shields.io/pub/v/matrix2d.svg)](https://pub.dev/packages/matrix2d)
-
-[![CI](https://github.com/n4ze3m/matrix2d/actions/workflows/ci.yml/badge.svg)](https://github.com/n4ze3m/matrix2d/actions/workflows/ci.yml)
-
-[![GitHub license](https://img.shields.io/github/license/n4ze3m/matrix2d)](https://github.com/n4ze3m/matrix2d/blob/master/LICENSE)
+[![pub version](https://img.shields.io/pub/v/matrix2d.svg)](https://pub.dev/packages/matrix2d)
+[![Build Status](https://github.com/n4ze3m/matrix2d/actions/workflows/ci.yml/badge.svg)](https://github.com/n4ze3m/matrix2d/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/github/license/n4ze3m/matrix2d)](https://github.com/n4ze3m/matrix2d/blob/master/LICENSE)
 
 
 Matrix 2D you can perform matrix operations such as addition, subtraction, multiplication, and more in dart. It is a simple and easy to use library inspired from python's numpy library.
 
-## Operations 😁
+## Operations
 
 - `addition(listA,listB)` returns array of sums of corresponding elements of listA and listB of any dimensions.
 
@@ -230,7 +228,7 @@ print(list.diagonal);
 ```
 
 <hr>
-<h2>compareobject</h2>
+<h2>compare object</h2>
 
 ```dart
 var list = [[1,1,1],[2,2,2],[3,3,3]];
@@ -381,10 +379,10 @@ print(anything);
 [[2, 3, 4],[7, 8, 9]]
 ```
 
-## Contribution 🤓
+## Contribution
 
 If you want to contribute to this project, you are always welcome! Just make a pull request and I will review it as soon as possible.
 
-## Features and bugs 🐛
+## Features and bugs
 
 Please file feature requests and bugs at the [issue tracker][tracker].
