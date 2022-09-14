@@ -1,3 +1,7 @@
+## 1.0.4
+
++  reverse / flip the matrix method added
+
 ## 1.0.3
 
 + Fixed slice type issue

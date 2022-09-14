@@ -502,6 +502,28 @@ class Matrix2d {
     }
   }
 
+  /// Function used to reverse 2D array along axis 
+  /// axis is 0 by default and only support 0 and 1 
+  /// ```dart
+  /// var arr = [[1,2,3],[4,5,6],[7,8,9]];
+  /// var res = m2d.reverse(arr);
+  /// print(res);
+  /// // [[7,8,9],[4,5,6],[1,2,3]]
+  /// ```
+  List reverse(List<dynamic> list, [axis = 0]) {
+    if (axis == 0) {
+      return list.reversed.toList();
+    } else if (axis == 1) {
+      var temp = [];
+      for (var i = 0; i < list.length; i++) {
+        temp.add(list[i].reversed.toList());
+      }
+      return temp;
+    } else {
+      throw new Exception('Only two axis 0 and 1');
+    }
+  }
+
   /// Function used to slice two-dimensional arrays
   ///
   /// slice(parent array, row_index [start, stop], column_index [start, stop])
