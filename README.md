@@ -1,8 +1,13 @@
-<h1 align="center">Matrix 2D 🧮</h1>
+# Matrix 2D 🧮
 
-Matrix 2D is a lightweight dart library providing a subset of Python's numpy package. This package is written in pure dart 🔥.
+[![Pub](https://img.shields.io/pub/v/matrix2d.svg)](https://pub.dev/packages/matrix2d)
 
-<!-- *please check example/example.dart* for examples. -->
+[![CI](https://github.com/n4ze3m/matrix2d/actions/workflows/ci.yml/badge.svg)](https://github.com/n4ze3m/matrix2d/actions/workflows/ci.yml)
+
+[![GitHub license](https://img.shields.io/github/license/n4ze3m/matrix2d)](https://github.com/n4ze3m/matrix2d/blob/master/LICENSE)
+
+
+Matrix 2D you can perform matrix operations such as addition, subtraction, multiplication, and more in dart. It is a simple and easy to use library inspired from python's numpy library.
 
 ## Operations 😁
 
@@ -42,8 +47,6 @@ Matrix 2D is a lightweight dart library providing a subset of Python's numpy pac
 * `max(list,{axis})` Functions, used to find the maximum value for any given array
 
 * `slice(list (List<List>), row_index [start, stop*], column_index [start, stop*]*)` Function used to slice two-dimensional arrays . (_column_index_ and _stop_ not required )
-
-_As soon as possible, more features will be available._
 
 ## Examples
 
@@ -378,22 +381,10 @@ print(anything);
 [[2, 3, 4],[7, 8, 9]]
 ```
 
-<hr>
-
-for more examples vist [Matrix2d Wiki](https://github.com/buckthorndev/matrix2d/wiki)
-
 ## Contribution 🤓
 
-Happy 😍 to recieve or provide contributions related to this package.
+If you want to contribute to this project, you are always welcome! Just make a pull request and I will review it as soon as possible.
 
 ## Features and bugs 🐛
 
-Please file feature requests and bugs at the [issue tracker](https://github.com/buckthorndev/matrix2d/issues).
-
-## Contact
-
-if you have any questions , feel free to write us on
-
-- [Buckthorn Twitter](https://twitter.com/buckthorndev)
-
-- [Mail](mailto:buckthorndev@gmail.com)
+Please file feature requests and bugs at the [issue tracker][tracker].
