@@ -1,3 +1,7 @@
+## 1.0.3
+
++ Fixed slice type issue
+
 ## 1.0.2
 
 + fix slice function, update test file (@DavidBrynnHouse)

@@ -1,10 +1,13 @@
-<h1 align="center">Matrix 2D 🧮</h1>
+# Matrix 2D 🧮
 
-Matrix 2D is a lightweight dart library providing a subset of Python's numpy package. This package is written in pure dart 🔥.
+[![pub version](https://img.shields.io/pub/v/matrix2d.svg)](https://pub.dev/packages/matrix2d)
+[![Build Status](https://github.com/n4ze3m/matrix2d/actions/workflows/ci.yml/badge.svg)](https://github.com/n4ze3m/matrix2d/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/github/license/n4ze3m/matrix2d)](https://github.com/n4ze3m/matrix2d/blob/master/LICENSE)
 
-<!-- *please check example/example.dart* for examples. -->
 
-## Operations 😁
+Matrix 2D you can perform matrix operations such as addition, subtraction, multiplication, and more in dart. It is a simple and easy to use library inspired from python's numpy library.
+
+## Operations
 
 - `addition(listA,listB)` returns array of sums of corresponding elements of listA and listB of any dimensions.
 
@@ -42,8 +45,6 @@ Matrix 2D is a lightweight dart library providing a subset of Python's numpy pac
 * `max(list,{axis})` Functions, used to find the maximum value for any given array
 
 * `slice(list (List<List>), row_index [start, stop*], column_index [start, stop*]*)` Function used to slice two-dimensional arrays . (_column_index_ and _stop_ not required )
-
-_As soon as possible, more features will be available._
 
 ## Examples
 
@@ -227,7 +228,7 @@ print(list.diagonal);
 ```
 
 <hr>
-<h2>compareobject</h2>
+<h2>compare object</h2>
 
 ```dart
 var list = [[1,1,1],[2,2,2],[3,3,3]];
@@ -378,22 +379,10 @@ print(anything);
 [[2, 3, 4],[7, 8, 9]]
 ```
 
-<hr>
+## Contribution
 
-for more examples vist [Matrix2d Wiki](https://github.com/buckthorndev/matrix2d/wiki)
+If you want to contribute to this project, you are always welcome! Just make a pull request and I will review it as soon as possible.
 
-## Contribution 🤓
+## Features and bugs
 
-Happy 😍 to recieve or provide contributions related to this package.
-
-## Features and bugs 🐛
-
-Please file feature requests and bugs at the [issue tracker](https://github.com/buckthorndev/matrix2d/issues).
-
-## Contact
-
-if you have any questions , feel free to write us on
-
-- [Buckthorn Twitter](https://twitter.com/buckthorndev)
-
-- [Mail](mailto:buckthorndev@gmail.com)
+Please file feature requests and bugs at the [issue tracker][tracker].

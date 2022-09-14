@@ -154,16 +154,19 @@ class Matrix2d {
   /////[[37, 40], [85, 92]]
   ///```
   List dot(List list1, List list2) {
-    if (!_checkArray(list1) || !_checkArray(list1))
+    if (!_checkArray(list1) || !_checkArray(list1)) {
       throw ('Uneven array dimension');
+    }
     var list1Shape = shape(list1);
     var list2Shape = shape(list2);
-    if (list1Shape.length < 2 || list2Shape.length < 2)
+    if (list1Shape.length < 2 || list2Shape.length < 2) {
       throw new Exception(
           'Currently support 2D operations or put that values inside a list of list');
+    }
 
-    if (list1Shape[1] != list2Shape[0])
+    if (list1Shape[1] != list2Shape[0]) {
       throw new Exception('Shapes not aligned');
+    }
     // todo needs to use zero fun
     var result = new List<num>.filled(list1.length, 0)
         .map((e) => List<num>.filled(list2[0].length, 0))
@@ -377,7 +380,8 @@ class Matrix2d {
             }
           }
         } catch (e) {
-          throw new Exception('Sorry can\'t compare string with number');
+          throw new Exception(
+              'Sorry can\'t compare string with number (Not javascript)');
         }
       }
     }
@@ -387,7 +391,6 @@ class Matrix2d {
   /// Concatenation refers to joining. This function is used to join two arrays of the same shape along a specified axis. The function takes the following parameters
   /// note: Axis along which arrays have to be joined. Default is 0
   /// note 2: concatenation of n number of arrays comming soon.....
-  /// for example please check [github.com/buckthorndev/matrix2d](https://github.com/BuckthornInc/matrix2d)
   List concatenate(List list1, list2, {int axis = 0}) {
     if (axis > 1 || axis < 0) throw ('axis only support 0 and 1');
     var shape1 = shape(list1);
@@ -509,8 +512,11 @@ class Matrix2d {
   ///
   /// // output  [[2,3,4], [7,8,9]]
   /// ```
-  List slice(List<List> array, List<int> row_index, [List<int>? column_index]) {
+  List slice(List<dynamic> array, List<int> row_index,
+      [List<int>? column_index]) {
     var result = [];
+    // convert List<dynamic> to List<List>
+    var arr = array.map((e) => e is List ? e : [e]).toList();
     try {
       if (row_index.length > 2) {
         throw Exception(
@@ -519,7 +525,7 @@ class Matrix2d {
       int rowMin = row_index[0];
       int rowMax = row_index[1];
       int counter = 0;
-      array.forEach((List row) {
+      arr.forEach((List row) {
         if (rowMin <= counter && counter < rowMax) {
           if (column_index != null && column_index.length > 1) {
             result.add(row.getRange(column_index[0], column_index[1]).toList());
