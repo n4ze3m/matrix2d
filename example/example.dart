@@ -103,7 +103,7 @@ void main() {
   print(fill);
 
   // compare object
-  var compare = m2d.compareobject(arr, '>', 2);
+  var compare = m2d.compare(arr,'>=', 2);
   print(compare);
 
   // concatenate

@@ -227,7 +227,7 @@ print(list.diagonal);
 ```
 
 <hr>
-<h2>compare object</h2>
+<h2>compare</h2>
 
 ```dart
 var list = [[1,1,1],[2,2,2],[3,3,3]];
