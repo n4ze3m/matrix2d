@@ -62,8 +62,10 @@ class Matrix2d {
     if (!_shapeCheck) throw new Exception('Uneven array dimension');
     var result = [];
     for (var i = 0; i < list.length; i++) {
-      for (var j = 0; j < list[i].length; j++) {
-        result.add(list[i][j]);
+      if (list[i] is List) {
+        result.addAll(list[i]);
+      } else {
+        result.add(list[i]);
       }
     }
     return result;
@@ -80,13 +82,15 @@ class Matrix2d {
     final _shapeCheck = _checkArray(list);
     final shape = this.shape(list);
     if (!_shapeCheck) throw new Exception('Uneven array dimension');
-    // todo add zero here
     var temp =
         List.filled(shape[1], 0).map((e) => List.filled(shape[0], 0)).toList();
-    ;
-    for (var i = 0; i < shape[1]; i++) {
-      for (var j = 0; j < shape[0]; j++) {
-        temp[i][j] = list[j][i];
+    for (var i = 0; i < list.length; i++) {
+      if (list[i] is List) {
+        for (var j = 0; j < list[i].length; j++) {
+          temp[j][i] = list[i][j];
+        }
+      } else {
+        temp[0][i] = list[i];
       }
     }
     return temp;
@@ -226,9 +230,9 @@ class Matrix2d {
   /// print(sum);
   /// //8
   ///```
-  sum(List list) {
+  num sum(List list) {
     var listShape = shape(list);
-    if (listShape[0] != 1 || listShape[0] == 1) list = flatten(list);
+    if (listShape[0] != 1 || listShape[0] == 1) list = this.flatten(list);
     return utlArrSum(list);
   }
 
@@ -239,20 +243,15 @@ class Matrix2d {
   ///print(reshape);
   /////[[0, 1, 2, 3], [4, 5, 6, 7]]
   ///```
-  reshape(List list, int row, int column) {
+  List reshape(List list, int row, int column) {
     var listShape = shape(list);
     if (listShape[0] != 1 || listShape[0] == 1) list = flatten(list);
     var copy = list.sublist(0);
     list.clear();
-    for (var r = 0; r < row; r++) {
-      var res = [];
-      for (var c = 0; c < column; c++) {
-        var i = r * column + c;
-        if (i < copy.length) {
-          res.add(copy[i]);
-        }
-      }
-      list.add(res);
+    for (var i = 0; i < copy.length; i++) {
+      var r = i ~/ column;
+      if (list.length <= r) list.add([]);
+      list[r].add(copy[i]);
     }
     return list;
   }
@@ -282,29 +281,15 @@ class Matrix2d {
   /////[[1,2,3]]
   ///```
   List diagonal(List list) {
-    /// get the shape on an given array
     final shape = this.shape(list);
-
-    /// initialize empty array
     var res = [];
-
-    /// compar shape length
     if (shape.length < 2) {
       throw ('Currently support 2D operations or put that values inside a list of list');
     }
-
-    /// start row loop
     for (var i = 0; i < shape[0]; i++) {
-      /// start column loops
-      for (var j = 0; j < shape[1]; j++) {
-        /// compare row to column
-        if (i == j) {
-          /// if true add list value to initialized list
-          res.add(list[i][j]);
-        }
-      }
+      res.add(list[i][i]);
     }
-    return res.toList();
+    return res;
   }
 
   /// Just like `zeros()` and `ones()` this function will return a new array of given shape, with given object(anything btw strings too)
@@ -450,24 +435,8 @@ class Matrix2d {
     if (axis == 1) {
       if (shape1[0] == shape2[0]) {
         var temp = fill(shape1[0], shape1[1] + shape2[1], null);
-        var jwal = shape1[1] >= shape2[1] ? shape1[1] : shape2[1];
         for (var i = 0; i < shape1[0]; i++) {
-          for (var j = 0; j < jwal; j++) {
-            if (shape1[1] == shape2[1]) {
-              temp[i][j] = list1[i][j];
-              temp[i][j + shape2[1]] = list2[i][j];
-            } else if (shape1[1] > shape2[1]) {
-              temp[i][j] = list1[i][j];
-              if (j < shape2[1]) {
-                temp[i][j + shape1[1]] = list2[i][j];
-              }
-            } else {
-              if (j < shape1[1]) {
-                temp[i][j] = list1[i][j];
-              }
-              temp[i][j + shape2[1] - (shape2[1] - shape1[1])] = list2[i][j];
-            }
-          }
+          temp[i] = list1[i] + list2[i];
         }
         return temp;
       } else {

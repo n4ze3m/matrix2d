@@ -10,11 +10,54 @@ void main() {
     [5, 7, 8, 9, 10]
   ];
 
+  test('test flatten', () {
+    expect(m2d.flatten(array), [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 5, 7, 8, 9, 10]);
+  });
+
+  test('test transpose', () {
+    expect(m2d.transpose(array), [
+      [1, 6, 5],
+      [2, 7, 7],
+      [3, 8, 8],
+      [4, 9, 9],
+      [5, 10, 10]
+    ]);
+  });
+
+  test('test reshape', () {
+    expect(m2d.reshape(array, 5, 3), [
+      [1, 2, 3],
+      [4, 5, 6],
+      [7, 8, 9],
+      [10, 5, 7],
+      [8, 9, 10]
+    ]);
+  });
+
   test('test #1 with 2 row and column indexs', () {
     expect(m2d.slice(array, [0, 2], [1, 4]), [
       [2, 3, 4],
       [7, 8, 9]
     ]);
+  });
+
+  test('test diagonal', () {
+    expect(m2d.diagonal(array), [1, 7, 8]);
+  });
+
+  test('test concatenate', () {
+    expect(
+        m2d.concatenate([
+          [1, 2],
+          [3, 4]
+        ], [
+          [5, 6]
+        ]),
+        [
+          [1, 2],
+          [3, 4],
+          [5, 6]
+        ]);
   });
 
   test('test #2 with 1 row and 2 column index', () {

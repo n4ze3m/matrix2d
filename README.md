@@ -35,15 +35,18 @@ Matrix 2D you can perform matrix operations such as addition, subtraction, multi
 - `diagonal(list)` To find a diagonal element from a given matrix and gives output as one dimensional matrix.
 - `fill(row,cols,object)` Just like `zeros()` and `ones` this function will return a new array of given shape, with given object(anything btw strings too)
 
-* `compareobject(list,operation,obj)` compare values inside an array with given object and operations. function will return a new boolen array
+* `compareobject(list,operation,obj)` compare values inside an array with given object and operations. function will return a new boolen array (this function is deprecated in favor of `compare`)
 
-* `concatenate(listA,listB,{axis})` Concatenation refers to joining. This function is used to join two arrays of the same shape along a specified axis. The function takes the following parameters.Axis along which arrays have to be joined. Default is 0 _concatenation of n number of arrays comming soon....._
+* `concatenate(listA,listB,{axis})` Concatenation refers to joining. This function is used to join two arrays of the same shape along a specified axis. The function takes the following parameters.Axis along which arrays have to be joined. Default is 0
 
 * `min(list,{axis})` Functions, used to find the minimum value for any given array
 
 * `max(list,{axis})` Functions, used to find the maximum value for any given array
 
 * `slice(list (List<List>), row_index [start, stop*], column_index [start, stop*]*)` Function used to slice two-dimensional arrays . (_column_index_ and _stop_ not required )
+
+* `reverse(list,{axis})` Function used to reverse the array along the given axis. The function takes the following parameters.Axis along which the array is to be flipped. Default is 0
+
 
 ## Examples
 
