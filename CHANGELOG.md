@@ -2,7 +2,9 @@
 
 - reverse / flip the matrix method added
 - `comparseobject` deprecated in favor of `compare`
-- `concatenate`, `diagonal`, `reshape`, `transpose` and `flatten` are vectorized now
+- `concatenate`, `diagonal`, `reshape`, `transpose` and `flatten` are vectorized
+  now
+- `transpose` bug fixed `"'double' is not a subtype of type 'int'"`
 
 ## 1.0.3
 

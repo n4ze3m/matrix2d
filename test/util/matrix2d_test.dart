@@ -14,14 +14,65 @@ void main() {
     expect(m2d.flatten(array), [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 5, 7, 8, 9, 10]);
   });
 
-  test('test transpose', () {
-    expect(m2d.transpose(array), [
-      [1, 6, 5],
-      [2, 7, 7],
-      [3, 8, 8],
-      [4, 9, 9],
-      [5, 10, 10]
-    ]);
+  test('test transpose with double', () {
+    expect(
+        m2d.transpose([
+          [1.0, 2.0],
+          [1.0, 2.0]
+        ]),
+        [
+          [1.0, 1.0],
+          [2.0, 2.0]
+        ]);
+  });
+
+  test('test transpose with int', () {
+    expect(
+        m2d.transpose([
+          [1, 2],
+          [1, 2]
+        ]),
+        [
+          [1, 1],
+          [2, 2]
+        ]);
+  });
+
+  test('test transpose with string', () {
+    expect(
+        m2d.transpose([
+          ['1', '2'],
+          ['1', '2']
+        ]),
+        [
+          ['1', '1'],
+          ['2', '2']
+        ]);
+  });
+
+  test('test transpose with bool', () {
+    expect(
+        m2d.transpose([
+          [true, false],
+          [true, false]
+        ]),
+        [
+          [true, true],
+          [false, false]
+        ]);
+  });
+
+  test('test transpose with dynamic', () {
+    expect(
+        m2d.transpose([
+          [1, '2', true],
+          [1, '2', false]
+        ]),
+        [
+          [1, 1],
+          ['2', '2'],
+          [true, false]
+        ]);
   });
 
   test('test reshape', () {

@@ -79,21 +79,16 @@ class Matrix2d {
   ///// [[1,1],[2,2]]
   ///```
   List transpose(List list) {
-    final _shapeCheck = _checkArray(list);
-    final shape = this.shape(list);
-    if (!_shapeCheck) throw new Exception('Uneven array dimension');
-    var temp =
-        List.filled(shape[1], 0).map((e) => List.filled(shape[0], 0)).toList();
-    for (var i = 0; i < list.length; i++) {
-      if (list[i] is List) {
-        for (var j = 0; j < list[i].length; j++) {
-          temp[j][i] = list[i][j];
-        }
-      } else {
-        temp[0][i] = list[i];
+    if (!_checkArray(list)) throw new Exception('Uneven array dimension');
+    var result = [];
+    for (var i = 0; i < list[0].length; i++) {
+      var temp = [];
+      for (var j = 0; j < list.length; j++) {
+        temp.add(list[j][i]);
       }
+      result.add(temp);
     }
-    return temp;
+    return result;
   }
 
   /// Function is used when we want to compute the addition of two array.
