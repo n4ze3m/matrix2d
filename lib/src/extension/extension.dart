@@ -24,4 +24,7 @@ extension Matrix2dExtension on List {
 
   /// find max value of given matrix
   List max({int? axis}) => Matrix2d().max(this, axis: axis);
+
+  /// flip (`reverse`) the matrix along the given axis and returns the modified array.
+  List flip({int? axis}) => Matrix2d().reverse(this, axis);
 }

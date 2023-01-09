@@ -62,8 +62,10 @@ class Matrix2d {
     if (!_shapeCheck) throw new Exception('Uneven array dimension');
     var result = [];
     for (var i = 0; i < list.length; i++) {
-      for (var j = 0; j < list[i].length; j++) {
-        result.add(list[i][j]);
+      if (list[i] is List) {
+        result.addAll(list[i]);
+      } else {
+        result.add(list[i]);
       }
     }
     return result;
@@ -77,19 +79,16 @@ class Matrix2d {
   ///// [[1,1],[2,2]]
   ///```
   List transpose(List list) {
-    final _shapeCheck = _checkArray(list);
-    final shape = this.shape(list);
-    if (!_shapeCheck) throw new Exception('Uneven array dimension');
-    // todo add zero here
-    var temp =
-        List.filled(shape[1], 0).map((e) => List.filled(shape[0], 0)).toList();
-    ;
-    for (var i = 0; i < shape[1]; i++) {
-      for (var j = 0; j < shape[0]; j++) {
-        temp[i][j] = list[j][i];
+    if (!_checkArray(list)) throw new Exception('Uneven array dimension');
+    var result = [];
+    for (var i = 0; i < list[0].length; i++) {
+      var temp = [];
+      for (var j = 0; j < list.length; j++) {
+        temp.add(list[j][i]);
       }
+      result.add(temp);
     }
-    return temp;
+    return result;
   }
 
   /// Function is used when we want to compute the addition of two array.
@@ -226,9 +225,9 @@ class Matrix2d {
   /// print(sum);
   /// //8
   ///```
-  sum(List list) {
+  num sum(List list) {
     var listShape = shape(list);
-    if (listShape[0] != 1 || listShape[0] == 1) list = flatten(list);
+    if (listShape[0] != 1 || listShape[0] == 1) list = this.flatten(list);
     return utlArrSum(list);
   }
 
@@ -239,20 +238,15 @@ class Matrix2d {
   ///print(reshape);
   /////[[0, 1, 2, 3], [4, 5, 6, 7]]
   ///```
-  reshape(List list, int row, int column) {
+  List reshape(List list, int row, int column) {
     var listShape = shape(list);
     if (listShape[0] != 1 || listShape[0] == 1) list = flatten(list);
     var copy = list.sublist(0);
     list.clear();
-    for (var r = 0; r < row; r++) {
-      var res = [];
-      for (var c = 0; c < column; c++) {
-        var i = r * column + c;
-        if (i < copy.length) {
-          res.add(copy[i]);
-        }
-      }
-      list.add(res);
+    for (var i = 0; i < copy.length; i++) {
+      var r = i ~/ column;
+      if (list.length <= r) list.add([]);
+      list[r].add(copy[i]);
     }
     return list;
   }
@@ -282,32 +276,15 @@ class Matrix2d {
   /////[[1,2,3]]
   ///```
   List diagonal(List list) {
-    /// get the shape on an given array
     final shape = this.shape(list);
-
-    /// initialize empty array
     var res = [];
-
-    /// compar shape length
-    if (shape.length < 2)
-
-      /// throw error
+    if (shape.length < 2) {
       throw ('Currently support 2D operations or put that values inside a list of list');
-
-    /// start row loop
-    for (var i = 0; i < shape[0]; i++) {
-      /// start column loops
-      for (var j = 0; j < shape[1]; j++) {
-        /// compare row to column
-        if (i == j) {
-          /// if true add list value to initialized list
-          res.add(list[i][j]);
-        }
-      }
     }
-
-    /// return the new diaglonal list inside list
-    return [res];
+    for (var i = 0; i < shape[0]; i++) {
+      res.add(list[i][i]);
+    }
+    return res;
   }
 
   /// Just like `zeros()` and `ones()` this function will return a new array of given shape, with given object(anything btw strings too)
@@ -321,13 +298,13 @@ class Matrix2d {
       List.filled(row, value).map((e) => List.filled(cols, value)).toList();
 
   /// compare values inside an array with given object and operations. function will return a  new boolen array
-  ///
   /// ```
   /// var arr = [[1,1,1],[2,2,2],[3,3,3]];
   /// var compare = m2d.compare(arr,'>',2);
   ///print(compare);
   /////[[false, false, false], [false, false, false], [true, true, true]]
   /// ```
+  @Deprecated('Use `compare` instead.')
   List compareobject(List list, String operations, object) {
     var shapee = shape(list);
     var operatns = ['>', '<', '>=', '<=', '==', '!='];
@@ -388,34 +365,73 @@ class Matrix2d {
     return res;
   }
 
+  /// compare values inside an array with given object and operations. function will return a  new boolen array
+  /// ```
+  /// var arr = [[1,1,1],[2,2,2],[3,3,3]];
+  /// var compare = m2d.compare(arr,'>',2);
+  ///print(compare);
+  /////[[false, false, false], [false, false, false], [true, true, true]]
+  /// ```
+  List compare(List list, String operation, object) {
+    var shapee = this.shape(list);
+    if (!_checkArray(list)) {
+      throw new Exception('Uneven array dimension');
+    }
+
+    if (shapee.length < 2) {
+      throw new Exception(
+          'Currently support 2D operations or put that values inside a list of list');
+    }
+    var res = fill(shapee[0], shapee[1], true);
+    for (var i = 0; i < shapee[0]; i++) {
+      for (var j = 0; j < shapee[1]; j++) {
+        try {
+          var val = list[i][j];
+          switch (operation) {
+            case '>':
+              res[i][j] = val > object;
+              break;
+            case '<':
+              res[i][j] = val < object;
+              break;
+            case '>=':
+              res[i][j] = val >= object;
+              break;
+            case '<=':
+              res[i][j] = val <= object;
+              break;
+            case '==':
+              res[i][j] = val == object;
+              break;
+            case '!=':
+              res[i][j] = val != object;
+              break;
+            default:
+              throw new Exception('Current operation is not support');
+          }
+        } catch (e) {
+          throw new Exception(
+              'Sorry can\'t compare string with number (Not javascript)');
+        }
+      }
+    }
+    return res;
+  }
+
   /// Concatenation refers to joining. This function is used to join two arrays of the same shape along a specified axis. The function takes the following parameters
   /// note: Axis along which arrays have to be joined. Default is 0
   /// note 2: concatenation of n number of arrays comming soon.....
   List concatenate(List list1, list2, {int axis = 0}) {
-    if (axis > 1 || axis < 0) throw ('axis only support 0 and 1');
+    if (axis > 1 || axis < 0) {
+      throw ('axis only support 0 and 1');
+    }
     var shape1 = shape(list1);
     var shape2 = shape(list2);
     if (axis == 1) {
       if (shape1[0] == shape2[0]) {
         var temp = fill(shape1[0], shape1[1] + shape2[1], null);
-        var jwal = shape1[1] >= shape2[1] ? shape1[1] : shape2[1];
         for (var i = 0; i < shape1[0]; i++) {
-          for (var j = 0; j < jwal; j++) {
-            if (shape1[1] == shape2[1]) {
-              temp[i][j] = list1[i][j];
-              temp[i][j + shape2[1]] = list2[i][j];
-            } else if (shape1[1] > shape2[1]) {
-              temp[i][j] = list1[i][j];
-              if (j < shape2[1]) {
-                temp[i][j + shape1[1]] = list2[i][j];
-              }
-            } else {
-              if (j < shape1[1]) {
-                temp[i][j] = list1[i][j];
-              }
-              temp[i][j + shape2[1] - (shape2[1] - shape1[1])] = list2[i][j];
-            }
-          }
+          temp[i] = list1[i] + list2[i];
         }
         return temp;
       } else {
@@ -472,7 +488,9 @@ class Matrix2d {
   /// axis is null by default to find max values of columns use zero and for rows use 1
   List max(List list, {int? axis}) {
     try {
-      if (!_checkArray(list)) throw new Exception('Not 2d array');
+      if (!_checkArray(list)) {
+        throw new Exception('Not 2d array');
+      }
       var result = [];
       if (axis == null) {
         list = flatten(list);
@@ -499,6 +517,28 @@ class Matrix2d {
       }
     } catch (e) {
       throw new Exception(e);
+    }
+  }
+
+  /// Function used to reverse 2D array along axis
+  /// axis is 0 by default and only support 0 and 1
+  /// ```dart
+  /// var arr = [[1,2,3],[4,5,6],[7,8,9]];
+  /// var res = m2d.reverse(arr);
+  /// print(res);
+  /// // [[7,8,9],[4,5,6],[1,2,3]]
+  /// ```
+  List reverse(List<dynamic> list, [axis = 0]) {
+    if (axis == 0) {
+      return list.reversed.toList();
+    } else if (axis == 1) {
+      var temp = [];
+      list.forEach((element) {
+        temp.add(element.reversed.toList());
+      });
+      return temp;
+    } else {
+      throw new Exception('Only two axis 0 and 1');
     }
   }
 
