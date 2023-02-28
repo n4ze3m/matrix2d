@@ -141,4 +141,78 @@ void main() {
       [10, 9, 8, 7, 5]
     ]);
   });
+
+  test(
+      'test #8 scalar operation',
+      () => {
+            expect(
+                m2d.scalarOperation([
+                  [1, 2],
+                  [3, 4]
+                ], 2.0, Operation.add),
+                [
+                  [3.0, 4.0],
+                  [5.0, 6.0]
+                ])
+          });
+
+  test('test #9 scalar operation', () {
+    expect(
+        m2d.scalarOperation([
+          [1, 2],
+          [3, 4]
+        ], 2.0, Operation.subtract),
+        [
+          [-1.0, 0.0],
+          [1.0, 2.0]
+        ]);
+  });
+
+  test('test #10 scalar operation', () {
+    expect(
+        m2d.scalarOperation([
+          [1, 2],
+          [3, 4]
+        ], 2.0, Operation.multiply),
+        [
+          [2.0, 4.0],
+          [6.0, 8.0]
+        ]);
+  });
+
+  test('test #11 scalar operation', () {
+    expect(
+        m2d.scalarOperation([
+          [1, 2],
+          [3, 4]
+        ], 2.0, Operation.divide),
+        [
+          [0.5, 1.0],
+          [1.5, 2.0]
+        ]);
+  });
+
+  test('test #12 scalar operation', () {
+    expect(
+        m2d.scalarOperation([
+          [1, 2],
+          [3, 4]
+        ], 2.0, Operation.power),
+        [
+          [1.0, 4.0],
+          [9.0, 16.0]
+        ]);
+  });
+
+  test('test #13 scalar operation', () {
+    expect(
+        m2d.scalarOperation([
+          [1, 2],
+          [3, 4]
+        ], 2.0, Operation.mod),
+        [
+          [1.0, 0.0],
+          [1.0, 0.0]
+        ]);
+  });
 }
