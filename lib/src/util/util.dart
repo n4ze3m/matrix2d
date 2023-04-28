@@ -49,6 +49,21 @@ utlsubtraction(List l1, List l2) {
   return res;
 }
 
+/// util or helper function for matrix subtraction of matrix and a vector
+
+List utlsubtractionMatrixVector(List<dynamic> matrix, List<dynamic> scalar) {
+  List res = [];
+  for (int i = 0; i < matrix.length; i++) {
+    if (_isList(matrix[i])) {
+      res.add(_sub(matrix[i], scalar));
+    } else {
+      var val = matrix[i] - scalar[0];
+      res.add(val);
+    }
+  }
+  return res;
+}
+
 /// util or helper functions for some operations
 List _div(r1, r2) {
   List temList = [];

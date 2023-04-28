@@ -215,4 +215,174 @@ void main() {
           [1.0, 0.0]
         ]);
   });
+
+  test('test #14 mean', () {
+    expect(
+        m2d.mean([
+          [1, 2],
+          [3, 4]
+        ]),
+        2.5);
+  });
+
+  test("test #15 mean", () {
+    expect(
+        m2d.addition([
+          [100, 200]
+        ], [
+          [200, 300]
+        ]),
+        [
+          [300, 500]
+        ]);
+  });
+
+  test("vector and matrix dot product", () {
+    expect(
+        m2d.dot([
+          [1, 2]
+        ], [
+          [3],
+          [4]
+        ]),
+        [
+          [11]
+        ]);
+  });
+
+  group('Dot product', () {
+    test('Dot product of two 1D vectors', () {
+      expect(m2d.dot([1, 2, 3], [4, 5, 6]), equals(32));
+    });
+
+    test('Dot product of two 1D vectors with one element', () {
+      expect(m2d.dot([5], [2]), equals(10));
+    });
+
+    test('Dot product of two 1D vectors with different lengths', () {
+      expect(() => m2d.dot([1, 2], [3, 4, 5]), throwsArgumentError);
+    });
+
+    test('Dot product of two 2D matrices', () {
+      expect(
+          m2d.dot([
+            [1, 2],
+            [3, 4],
+            [5, 6]
+          ], [
+            [7, 8],
+            [9, 10]
+          ]),
+          equals([
+            [25, 28],
+            [57, 64],
+            [89, 100]
+          ]));
+    });
+
+    test('Dot product of two 2D matrices with one element', () {
+      expect(
+          m2d.dot([
+            [5]
+          ], [
+            [2]
+          ]),
+          equals([
+            [10]
+          ]));
+    });
+
+    test('Dot product of two 2D matrices with incompatible dimensions', () {
+      expect(
+          () => m2d.dot([
+                [1, 2],
+                [3, 4]
+              ], [
+                [5, 6]
+              ]),
+          throwsArgumentError);
+    });
+
+    test('Dot product of a 1D vector and a 2D matrix', () {
+      expect(
+          m2d.dot([
+            1,
+            2,
+            3
+          ], [
+            [4, 5],
+            [6, 7],
+            [8, 9]
+          ]),
+          equals([40, 46]));
+    });
+
+    test('Dot product of a 1D vector and a 2D matrix with broadcast', () {
+      expect(
+          m2d.dot([
+            1,
+            2
+          ], [
+            [3, 4],
+            [5, 6]
+          ]),
+          equals([13, 16]));
+    });
+
+    test(
+        'Dot product of a 1D vector and a 2D matrix with incompatible dimensions',
+        () {
+      expect(
+          () => m2d.dot([
+                1,
+                2,
+                3
+              ], [
+                [4, 5],
+                [6, 7]
+              ]),
+          throwsArgumentError);
+    });
+
+    test('Dot product of a 2D matrix and a 1D vector', () {
+      expect(
+          m2d.dot([
+            [1, 2, 3],
+            [4, 5, 6]
+          ], [
+            7,
+            8,
+            9
+          ]),
+          equals([50, 122]));
+    });
+
+    test('Dot product of a 2D matrix and a 1D vector with broadcast', () {
+      expect(
+          m2d.dot([
+            [1, 2],
+            [3, 4],
+            [5, 6]
+          ], [
+            7,
+            8
+          ]),
+          equals([23, 53, 83]));
+    });
+
+    test(
+        'Dot product of a 2D matrix and a 1D vector with incompatible dimensions',
+        () {
+      expect(
+          () => m2d.dot([
+                [1, 2],
+                [3, 4]
+              ], [
+                5,
+                6,
+                7
+              ]),
+          throwsArgumentError);
+    });
+  });
 }

@@ -64,7 +64,7 @@ void main() {
 
   // zeros
 
-  var zeros = m2d.zeros(2, 2);
+  var zeros = m2d.zeros(2, cols: 2);
   print(zeros);
 
   //ones

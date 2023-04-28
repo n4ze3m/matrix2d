@@ -1,9 +1,13 @@
+import 'package:matrix2d/matrix2d.dart';
+
 import 'util/util.dart';
 import 'dart:math';
+
 /// parts of matrix2d library
 part 'matrix2d_shape.dart';
 part 'matrix2d_random.dart';
 part 'matrix2d_operation.dart';
+
 /// Dart package for 2D Matrix or 2D array operations
 ///
 /// ```
@@ -12,8 +16,13 @@ part 'matrix2d_operation.dart';
 ///
 /// ReshapeOrder is used to specify the order in which the values are filled in the reshaped array. C means to fill the values in row-major order, with the last axis index changing fastest, back to the first axis index changing slowest. F means to fill the values in column-major order, with the first index changing fastest, and the last index changing slowest.
 enum ReshapeOrder { C, F, A }
+
 /// Operation is used to specify the operation to be performed on the array.
 enum Operation { add, subtract, multiply, divide, power, mod }
+
+/// M2dType is used to specify the type of the array.
+enum M2dType { vector, matrix }
+
 class Matrix2d {
   /// Dart package for 2D Matrix or 2D array operations
   ///
@@ -21,6 +30,44 @@ class Matrix2d {
   /// Matrix2d m2d = Matrix2d();
   /// ```
   const Matrix2d();
+
+  /// Return the Matrix2d type of the given list
+  /// ```
+  /// var list = [
+  ///  [1, 2],
+  /// [1, 2]
+  /// ];
+  /// print(m2d.m2dType(list));
+  /// //output M2dType.matrix
+  M2dType m2dType(List<dynamic> m2d) {
+    if (m2d is List<num>) {
+      return M2dType.vector;
+    } else if (m2d is List<List<num>>) {
+      return M2dType.matrix;
+      // ignore: unnecessary_type_check
+    } else if (m2d is List) {
+      if (m2d.isEmpty) {
+        throw ArgumentError("Invalid input.");
+      }
+      var firstElement = m2d[0];
+      if (firstElement is num) {
+        return M2dType.vector;
+      }
+      M2dType elementType = m2dType(firstElement);
+      for (int i = 1; i < m2d.length; i++) {
+        if (m2dType(m2d[i]) != elementType) {
+          throw ArgumentError("Invalid input.");
+        }
+      }
+      if (elementType == M2dType.vector) {
+        return M2dType.matrix;
+      } else {
+        throw ArgumentError("Invalid input.");
+      }
+    } else {
+      throw ArgumentError("Invalid input.");
+    }
+  }
 
   /// Check the given list is 2D array
   bool _checkArray(List list) {
@@ -44,6 +91,7 @@ class Matrix2d {
 
   /// For checking multi list
   static bool _isList(list) => list is List;
+
   ///Is one of the array creation routines based on numerical ranges. It creates an instance of ndarray with evenly spaced values and returns the reference to it.
   ///
   ///```
@@ -60,16 +108,6 @@ class Matrix2d {
     }
     return [result];
   }
-
-  /// Return a new array of given shape, with zeros
-  ///
-  /// ```
-  /// var zeros = m2d.zeros(2,2);
-  /// print(zeros);
-  /// //[[0, 0], [0, 0]]
-  /// ```
-  List zeros(int row, int cols) =>
-      List.filled(row, 0).map((e) => List.filled(cols, 0)).toList();
 
   /// Return a new array of given shape, with ones
   ///
@@ -428,5 +466,23 @@ class Matrix2d {
     } catch (e) {
       throw new Exception(e);
     }
+  }
+
+  /// Function used to find the sum of all elements in the given array
+  /// ```dart
+  /// var arr = [[1,2,3],[4,5,6],[7,8,9]];
+  /// print(m2d.mean(arr));
+  /// // 5
+  /// ```
+  double mean(List<dynamic> list) {
+    var type = m2dType(list);
+    if (type == M2dType.matrix) {
+      list = flatten(list);
+    }
+    var sum = 0.0;
+    list.forEach((element) {
+      sum += element;
+    });
+    return sum / list.length;
   }
 }

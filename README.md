@@ -1,7 +1,7 @@
 # Matrix 2D 🧮
 
 > **Warning**
-> This version is not stable yet. It is still under development and may contain bugs.
+> This version is still in development and may contain bugs. Use it at your own risk.
 
 [![pub version](https://img.shields.io/pub/v/matrix2d.svg)](https://pub.dev/packages/matrix2d)
 [![Build Status](https://github.com/n4ze3m/matrix2d/actions/workflows/ci.yml/badge.svg)](https://github.com/n4ze3m/matrix2d/actions/workflows/ci.yml)
