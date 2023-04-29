@@ -95,4 +95,41 @@ extension Matrix2DShape on Matrix2d {
     }
     return [for (var sublist in list) ...sublist];
   }
+
+  /// Broadcast is used to broadcast an array to a new shape.
+  /// it returns a new array with the original array broadcast to the given shape.
+  ///
+  /// ```
+  /// var broadcast = m2d.broadcast([[1, 2],[1, 2]], 2, 3);
+  /// print(broadcast);
+  /// // [[1, 2, 1], [2, 1, 2]]
+  /// ```
+  List<List<num>> broadcast(List<List<num>> matrix, int rows, int cols) {
+    List<List<num>> result = List.generate(rows, (_) => List.filled(cols, 0));
+    for (int i = 0; i < rows; i++) {
+      for (int j = 0; j < cols; j++) {
+        result[i][j] = matrix[i % matrix.length][j % matrix[0].length];
+      }
+    }
+    return result;
+  }
+  /// IsBroadcastable is used to check if two arrays are broadcastable.
+  /// Two arrays are broadcastable if their dimensions are equal, or if one of the arrays has one dimension.
+  ///
+  /// ```
+  /// var isBroadcastable = m2d.isBroadcastable([2, 3], [2, 3]);
+  /// print(isBroadcastable);
+  /// // true
+  /// ```
+  bool isBroadcastable(List<int> shape1, List<int> shape2) {
+    if (shape1.length != shape2.length) {
+      return false;
+    }
+    for (int i = 0; i < shape1.length; i++) {
+      if (shape1[i] != shape2[i] && shape1[i] != 1 && shape2[i] != 1) {
+        return false;
+      }
+    }
+    return true;
+  }
 }
