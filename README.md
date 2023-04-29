@@ -7,7 +7,7 @@
 [![Build Status](https://github.com/n4ze3m/matrix2d/actions/workflows/ci.yml/badge.svg)](https://github.com/n4ze3m/matrix2d/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/github/license/n4ze3m/matrix2d)](https://github.com/n4ze3m/matrix2d/blob/master/LICENSE)
 
-With Matrix 2D, you can perform matrix operations such as addition, subtraction, and multiplication in Dart. It is a simple and easy-to-use library inspired by Python's NumPy library.
+With Matrix 2D, you can perform matrix operations such as addition, subtract, and multiplication in Dart. It is a simple and easy-to-use library inspired by Python's NumPy library.
 
 ## Roadmap
 

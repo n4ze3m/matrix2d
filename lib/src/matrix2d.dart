@@ -21,7 +21,7 @@ enum ReshapeOrder { C, F, A }
 enum Operation { add, subtract, multiply, divide, power, mod }
 
 /// M2dType is used to specify the type of the array.
-enum M2dType { vector, matrix }
+enum M2dType { vector, matrix, number }
 
 class Matrix2d {
   /// Dart package for 2D Matrix or 2D array operations
@@ -39,8 +39,10 @@ class Matrix2d {
   /// ];
   /// print(m2d.m2dType(list));
   /// //output M2dType.matrix
-  M2dType m2dType(List<dynamic> m2d) {
-    if (m2d is List<num>) {
+  M2dType m2dType(dynamic m2d) {
+    if (m2d is num) {
+      return M2dType.number;
+    } else if (m2d is List<num>) {
       return M2dType.vector;
     } else if (m2d is List<List<num>>) {
       return M2dType.matrix;
@@ -126,10 +128,14 @@ class Matrix2d {
   /// print(sum);
   /// //8
   ///```
-  num sum(List list) {
-    var listShape = shape(list);
-    if (listShape[0] != 1 || listShape[0] == 1) list = this.flatten(list);
-    return utlArrSum(list);
+  num sum(dynamic a) {
+    if (a is List<num>) {
+      return a.reduce((value, element) => value + element);
+    } else if (a is List<List<num>>) {
+      return a.map((e) => sum(e)).reduce((value, element) => value + element);
+    } else {
+      throw ArgumentError("Invalid input.");
+    }
   }
 
   ///Returns number spaces evenly w.r.t interval. Similar to arange but instead of step it uses sample number.

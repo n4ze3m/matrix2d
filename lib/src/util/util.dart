@@ -36,7 +36,7 @@ List _sub(r1, r2) {
 }
 
 /// util or helper functions for some operations
-utlsubtraction(List l1, List l2) {
+utlsubtract(List l1, List l2) {
   List res = [];
   for (int i = 0; i < l1.length; i++) {
     if (_isList(l1[i])) {
@@ -49,9 +49,9 @@ utlsubtraction(List l1, List l2) {
   return res;
 }
 
-/// util or helper function for matrix subtraction of matrix and a vector
+/// util or helper function for matrix subtract of matrix and a vector
 
-List utlsubtractionMatrixVector(List<dynamic> matrix, List<dynamic> scalar) {
+List utlsubtractMatrixVector(List<dynamic> matrix, List<dynamic> scalar) {
   List res = [];
   for (int i = 0; i < matrix.length; i++) {
     if (_isList(matrix[i])) {

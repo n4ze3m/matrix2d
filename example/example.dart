@@ -26,7 +26,7 @@ void main() {
   print(add);
 
   // subtration
-  var sub = m2d.subtraction([
+  var sub = m2d.subtract([
     [1, 1],
     [1, 1]
   ], [
@@ -103,7 +103,7 @@ void main() {
   print(fill);
 
   // compare object
-  var compare = m2d.compare(arr,'>=', 2);
+  var compare = m2d.compare(arr, '>=', 2);
   print(compare);
 
   // concatenate
