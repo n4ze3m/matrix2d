@@ -1,10 +1,28 @@
+import 'package:matrix2d/matrix2d.dart';
+
 import 'util/util.dart';
+import 'dart:math';
+
+/// parts of matrix2d library
+part 'matrix2d_shape.dart';
+part 'matrix2d_random.dart';
+part 'matrix2d_operation.dart';
 
 /// Dart package for 2D Matrix or 2D array operations
 ///
 /// ```
 /// Matrix2d m2d = Matrix2d();
 /// ```
+///
+/// ReshapeOrder is used to specify the order in which the values are filled in the reshaped array. C means to fill the values in row-major order, with the last axis index changing fastest, back to the first axis index changing slowest. F means to fill the values in column-major order, with the first index changing fastest, and the last index changing slowest.
+enum ReshapeOrder { C, F, A }
+
+/// Operation is used to specify the operation to be performed on the array.
+enum Operation { add, subtract, multiply, divide, power, mod }
+
+/// M2dType is used to specify the type of the array.
+enum M2dType { vector, matrix, number }
+
 class Matrix2d {
   /// Dart package for 2D Matrix or 2D array operations
   ///
@@ -13,173 +31,68 @@ class Matrix2d {
   /// ```
   const Matrix2d();
 
+  /// Return the Matrix2d type of the given list
+  /// ```
+  /// var list = [
+  ///  [1, 2],
+  /// [1, 2]
+  /// ];
+  /// print(m2d.m2dType(list));
+  /// //output M2dType.matrix
+  M2dType m2dType(dynamic m2d) {
+    if (m2d is num) {
+      return M2dType.number;
+    } else if (m2d is List<num>) {
+      return M2dType.vector;
+    } else if (m2d is List<List<num>>) {
+      return M2dType.matrix;
+      // ignore: unnecessary_type_check
+    } else if (m2d is List) {
+      if (m2d.isEmpty) {
+        throw ArgumentError("Invalid input.");
+      }
+      var firstElement = m2d[0];
+      if (firstElement is num) {
+        return M2dType.vector;
+      }
+      M2dType elementType = m2dType(firstElement);
+      for (int i = 1; i < m2d.length; i++) {
+        if (m2dType(m2d[i]) != elementType) {
+          throw ArgumentError("Invalid input.");
+        }
+      }
+      if (elementType == M2dType.vector) {
+        return M2dType.matrix;
+      } else {
+        throw ArgumentError("Invalid input.");
+      }
+    } else {
+      throw ArgumentError("Invalid input.");
+    }
+  }
+
   /// Check the given list is 2D array
   bool _checkArray(List list) {
-    var flag = _isList(list[0]);
-    var length = flag ? list[0].length : 0;
-    for (var i = 0; i < list.length; i++) {
-      var tempFlag = _isList(list[i]);
-      var tempLength = tempFlag ? list[i].length : 0;
-      if (flag != tempFlag || length != tempLength) return false;
+    if (list.isEmpty) {
+      return true;
     }
+
+    var flag = list[0] is List;
+    var length = flag ? list[0].length : 0;
+
+    for (var item in list) {
+      var tempFlag = item is List;
+      var tempLength = tempFlag ? item.length : 0;
+      if (flag != tempFlag || length != tempLength) {
+        return false;
+      }
+    }
+
     return true;
   }
 
   /// For checking multi list
   static bool _isList(list) => list is List;
-
-  /// The shape of an array is the number of elements in each dimension.
-  ///
-  /// ```
-  /// var shape = m2d.shape([[1, 2],[1, 2]]);
-  /// print(shape);
-  /// //output [2,2]
-  /// ```
-  List shape(List list) {
-    var _shapeCheck = _checkArray(list);
-    if (!_shapeCheck) throw new Exception('Uneven array dimension');
-    var result = [];
-    for (;;) {
-      result.add(list.length);
-      if (_isList(list[0])) {
-        list = list[0];
-      } else {
-        break;
-      }
-    }
-    return result;
-  }
-
-  ///  Used to get a copy of an given array collapsed into one dimension
-  ///
-  /// ```
-  /// var flat = m2d.flatten([[1, 2],[1, 2]]);
-  /// print(flat);
-  /// // [1,2,1,2]
-  /// ```
-  List flatten(List list) {
-    final _shapeCheck = _checkArray(list);
-    if (!_shapeCheck) throw new Exception('Uneven array dimension');
-    var result = [];
-    for (var i = 0; i < list.length; i++) {
-      if (list[i] is List) {
-        result.addAll(list[i]);
-      } else {
-        result.add(list[i]);
-      }
-    }
-    return result;
-  }
-
-  ///Reverse the axes of an array and returns the modified array.
-  ///
-  ///```
-  ///var transpose = m2d.transpose([[1, 2],[1, 2]]);
-  ///print(transpose);
-  ///// [[1,1],[2,2]]
-  ///```
-  List transpose(List list) {
-    if (!_checkArray(list)) throw new Exception('Uneven array dimension');
-    var result = [];
-    for (var i = 0; i < list[0].length; i++) {
-      var temp = [];
-      for (var j = 0; j < list.length; j++) {
-        temp.add(list[j][i]);
-      }
-      result.add(temp);
-    }
-    return result;
-  }
-
-  /// Function is used when we want to compute the addition of two array.
-  ///
-  ///```
-  /// var add = m2d.addition([[1,1],[1,1]],[[2,2],[2,2]]);
-  /// print(add);
-  /// //[[3,3],[3,3]]
-  ///```
-  List addition(List list1, List list2) {
-    var list1Shape = shape(list1);
-    var list2Shape = shape(list2);
-    if (list1Shape.toString() != list2Shape.toString()) {
-      throw new Exception(
-          'operands could not be broadcast together with shapes $list1Shape $list2Shape');
-    }
-    var result = utladdition(list1, list2);
-    return result;
-  }
-
-  /// Function is used when we want to compute the difference of two array.
-  ///
-  ///```
-  /// var sub = m2d.subtraction([[1,1],[1,1]],[[2,2],[2,2]]);
-  /// print(sub);
-  /// //[[-1,-1],[-1,-1]]
-  ///```
-  List subtraction(List list1, List list2) {
-    var list1Shape = shape(list1);
-    var list2Shape = shape(list2);
-    if (list1Shape.toString() != list2Shape.toString()) {
-      throw new Exception(
-          'operands could not be broadcast together with shapes $list1Shape $list2Shape');
-    }
-    var result = utlsubtraction(list1, list2);
-    return result;
-  }
-
-  /// Matrix element from first matrix is divided by elements from second element.Both list1 and list2 must have same shape and element in list2 must not be zero; otherwise ouput matrix contain infinity.
-  ///
-  /// ```
-  /// var div = m2d.division([[1,1],[1,1]],[[2,0],[2,2]]);
-  /// print(div);
-  /// // [[0.5, Infinity], [0.5, 0.5]]
-  /// ```
-  List division(List list1, List list2) {
-    var list1Shape = shape(list1);
-    var list2Shape = shape(list2);
-    if (list1Shape.toString() != list2Shape.toString()) {
-      throw new Exception(
-          'operands could not be broadcast together with shapes $list1Shape $list2Shape');
-    }
-    var result = utldivition(list1, list2);
-    return result;
-  }
-
-  ///Function returns the dot product of two arrays. For 2-D vectors, it is the equivalent to matrix multiplication. For 1-D arrays, it is the inner product of the vectors. For N-dimensional arrays, it is a sum product over the last axis of a and the second-last axis of b.
-  ///
-  ///```
-  ///var dot = m2d.dot([[1,2],[3,4]], [[11,12],[13,14]])
-  ///print(dot);
-  /////[[37, 40], [85, 92]]
-  ///```
-  List dot(List list1, List list2) {
-    if (!_checkArray(list1) || !_checkArray(list1)) {
-      throw ('Uneven array dimension');
-    }
-    var list1Shape = shape(list1);
-    var list2Shape = shape(list2);
-    if (list1Shape.length < 2 || list2Shape.length < 2) {
-      throw new Exception(
-          'Currently support 2D operations or put that values inside a list of list');
-    }
-
-    if (list1Shape[1] != list2Shape[0]) {
-      throw new Exception('Shapes not aligned');
-    }
-    // todo needs to use zero fun
-    var result = new List<num>.filled(list1.length, 0)
-        .map((e) => List<num>.filled(list2[0].length, 0))
-        .toList();
-    // list1 x list2 matrix
-    for (var r = 0; r < list1.length; r++) {
-      for (var c = 0; c < list2[0].length; c++) {
-        for (var i = 0; i < list1[0].length; i++) {
-          result[r][c] += list1[r][i] * list2[i][c];
-        }
-      }
-    }
-    return result;
-  }
 
   ///Is one of the array creation routines based on numerical ranges. It creates an instance of ndarray with evenly spaced values and returns the reference to it.
   ///
@@ -198,16 +111,6 @@ class Matrix2d {
     return [result];
   }
 
-  /// Return a new array of given shape, with zeros
-  ///
-  /// ```
-  /// var zeros = m2d.zeros(2,2);
-  /// print(zeros);
-  /// //[[0, 0], [0, 0]]
-  /// ```
-  List zeros(int row, int cols) =>
-      List.filled(row, 0).map((e) => List.filled(cols, 0)).toList();
-
   /// Return a new array of given shape, with ones
   ///
   /// ```
@@ -225,30 +128,14 @@ class Matrix2d {
   /// print(sum);
   /// //8
   ///```
-  num sum(List list) {
-    var listShape = shape(list);
-    if (listShape[0] != 1 || listShape[0] == 1) list = this.flatten(list);
-    return utlArrSum(list);
-  }
-
-  /// Reshaping means changing the shape of an array.
-  ///
-  ///```
-  ///var reshape = m2d.reshape([ [0, 1, 2, 3, 4, 5, 6, 7]],2,4);
-  ///print(reshape);
-  /////[[0, 1, 2, 3], [4, 5, 6, 7]]
-  ///```
-  List reshape(List list, int row, int column) {
-    var listShape = shape(list);
-    if (listShape[0] != 1 || listShape[0] == 1) list = flatten(list);
-    var copy = list.sublist(0);
-    list.clear();
-    for (var i = 0; i < copy.length; i++) {
-      var r = i ~/ column;
-      if (list.length <= r) list.add([]);
-      list[r].add(copy[i]);
+  num sum(dynamic a) {
+    if (a is List<num>) {
+      return a.reduce((value, element) => value + element);
+    } else if (a is List<List<num>>) {
+      return a.map((e) => sum(e)).reduce((value, element) => value + element);
+    } else {
+      throw ArgumentError("Invalid input.");
     }
-    return list;
   }
 
   ///Returns number spaces evenly w.r.t interval. Similar to arange but instead of step it uses sample number.
@@ -585,5 +472,23 @@ class Matrix2d {
     } catch (e) {
       throw new Exception(e);
     }
+  }
+
+  /// Function used to find the sum of all elements in the given array
+  /// ```dart
+  /// var arr = [[1,2,3],[4,5,6],[7,8,9]];
+  /// print(m2d.mean(arr));
+  /// // 5
+  /// ```
+  double mean(List<dynamic> list) {
+    var type = m2dType(list);
+    if (type == M2dType.matrix) {
+      list = flatten(list);
+    }
+    var sum = 0.0;
+    list.forEach((element) {
+      sum += element;
+    });
+    return sum / list.length;
   }
 }

@@ -36,13 +36,28 @@ List _sub(r1, r2) {
 }
 
 /// util or helper functions for some operations
-utlsubtraction(List l1, List l2) {
+utlsubtract(List l1, List l2) {
   List res = [];
   for (int i = 0; i < l1.length; i++) {
     if (_isList(l1[i])) {
       res.add(_sub(l1[i], l2[i]));
     } else {
       var val = l1[i] - l2[i];
+      res.add(val);
+    }
+  }
+  return res;
+}
+
+/// util or helper function for matrix subtract of matrix and a vector
+
+List utlsubtractMatrixVector(List<dynamic> matrix, List<dynamic> scalar) {
+  List res = [];
+  for (int i = 0; i < matrix.length; i++) {
+    if (_isList(matrix[i])) {
+      res.add(_sub(matrix[i], scalar));
+    } else {
+      var val = matrix[i] - scalar[0];
       res.add(val);
     }
   }
